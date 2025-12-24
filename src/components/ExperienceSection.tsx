@@ -4,27 +4,30 @@ import { Briefcase, Code, Lightbulb } from "lucide-react";
 const experiences = [
   {
     icon: Briefcase,
-    role: "Freelance Full Stack Engineer",
-    scope: "International Clients",
-    period: "2021 - Present",
-    impact: "Delivered 15+ projects for clients across Europe, USA, and Asia. Specialized in MERN stack development with focus on scalable architecture.",
-    highlights: ["Remote Collaboration", "Client Management", "End-to-End Delivery"],
-  },
-  {
-    icon: Code,
-    role: "Software Engineer",
-    scope: "Production Systems",
-    period: "2022 - Present",
-    impact: "Built and maintained production-grade applications serving thousands of users. Implemented CI/CD pipelines and automated deployment workflows.",
-    highlights: ["System Design", "Performance Optimization", "Team Collaboration"],
+    role: "Full Stack Developer",
+    scope: "Qullia – Software Agency (Contract)",
+    location: "Dhaka (Remote)",
+    period: "Jan 2024 – Present",
+    impact: "Delivered 17+ production-grade web applications using React.js, Next.js, Node.js, Express & Laravel ensuring 100% deployment success and 99.9% uptime across multi-tenant platforms.",
+    details: [
+      "Engineered modular frontend architecture with Tailwind CSS, Bootstrap, Redux Toolkit, and TypeScript, improving code reusability and UI scalability.",
+      "Designed and developed RESTful APIs and optimized database schemas (MongoDB, PostgreSQL, MySQL), reducing data fetch latency by 35%.",
+      "Implemented CI/CD pipelines using GitHub Actions, Docker, and Render, accelerating release cycles by 45% with zero manual intervention.",
+      "Integrated secure payment and authentication systems (SSLCommerz, JWT, OAuth2.0).",
+      "Collaborated with designers via Figma and ensured responsive UIs improving cross-device experience by 50%.",
+      "Contributed to AI-integrated modules & implemented system design patterns for scalability and maintainability.",
+    ],
+    highlights: ["React.js", "Next.js", "Node.js", "Laravel", "CI/CD", "System Design"],
   },
   {
     icon: Lightbulb,
     role: "Research & Exploration",
-    scope: "AI & Computer Vision",
-    period: "2023 - Present",
+    scope: "Brac University",
+    location: "AI & Computer Vision",
+    period: "2025 – Present",
     impact: "Exploring machine learning applications with focus on computer vision. Building CNN-based solutions for real-world image processing challenges.",
-    highlights: ["Deep Learning", "Image Processing", "Research Projects"],
+    details: [],
+    highlights: ["Deep Learning", "Image Processing", "PyTorch", "TensorFlow", "NumPy", "Pandas"],
   },
 ];
 
@@ -93,10 +96,18 @@ const ExperienceSection = () => {
                 <h3 className="text-xl font-heading font-bold text-foreground mb-1">
                   {exp.role}
                 </h3>
-                <p className="text-primary font-medium mb-3">{exp.scope}</p>
+                <p className="text-primary font-medium">{exp.scope}</p>
+                <p className="text-muted-foreground text-xs mb-3">{exp.location}</p>
                 <p className="text-muted-foreground text-sm leading-relaxed mb-4">
                   {exp.impact}
                 </p>
+                {exp.details.length > 0 && (
+                  <ul className="text-muted-foreground text-xs leading-relaxed mb-4 space-y-1 list-disc list-inside">
+                    {exp.details.map((detail, i) => (
+                      <li key={i}>{detail}</li>
+                    ))}
+                  </ul>
+                )}
                 
                 <div className={`flex flex-wrap gap-2 ${
                   index % 2 === 0 ? "md:justify-end" : ""
