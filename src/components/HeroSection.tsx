@@ -1,9 +1,25 @@
-import { motion } from "framer-motion";
-import { ArrowRight, Download, Linkedin, Github, Mail } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowRight, Linkedin, Github, Mail, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import AnimatedGrid from "./AnimatedGrid";
+import { useState, useEffect } from "react";
+
+const roles = [
+  "Full Stack Software Engineer",
+  "Researcher",
+  "Computer Vision Expert"
+];
 
 const HeroSection = () => {
+  const [currentRole, setCurrentRole] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentRole((prev) => (prev + 1) % roles.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Animated Background */}
@@ -51,14 +67,27 @@ const HeroSection = () => {
               >
                 <span className="text-foreground">Sabbir Ahmad</span>
               </motion.h1>
-              <motion.p
+              
+              {/* Auto-changing Role */}
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5, duration: 0.6 }}
-                className="text-2xl md:text-3xl font-heading text-gradient glow-text"
+                className="h-10 md:h-12 overflow-hidden"
               >
-                Full Stack Software Engineer
-              </motion.p>
+                <AnimatePresence mode="wait">
+                  <motion.p
+                    key={currentRole}
+                    initial={{ y: 40, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: -40, opacity: 0 }}
+                    transition={{ duration: 0.5, ease: "easeInOut" }}
+                    className="text-2xl md:text-3xl font-heading text-gradient glow-text"
+                  >
+                    {roles[currentRole]}
+                  </motion.p>
+                </AnimatePresence>
+              </motion.div>
             </div>
 
             {/* Subtitle */}
@@ -66,13 +95,14 @@ const HeroSection = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6, duration: 0.6 }}
-              className="text-lg md:text-xl text-muted-foreground max-w-xl leading-relaxed"
+              className="text-lg md:text-xl max-w-xl leading-relaxed"
             >
-              I design, build, and scale production-grade web systems using modern JavaScript stacks.
+              <span className="text-muted-foreground">
+                I design, build, and scale production-grade web systems using modern JavaScript stacks.
+              </span>
               <br />
-              <span className="text-foreground/80">
-                Currently exploring <span className="mono-accent">AI/ML</span> and{" "}
-                <span className="mono-accent">Computer Vision</span> to enhance real-world applications.
+              <span className="text-foreground">
+                Currently exploring AI/ML and Computer Vision to enhance real-world applications.
               </span>
             </motion.p>
 
@@ -83,7 +113,7 @@ const HeroSection = () => {
               transition={{ delay: 0.7, duration: 0.6 }}
               className="flex flex-wrap gap-3"
             >
-              {["MERN Stack", "REST APIs", "Scalable Systems", "CI/CD"].map((tag, index) => (
+              {["MERN Stack", "REST APIs", "Scalable Systems", "CI/CD"].map((tag) => (
                 <span
                   key={tag}
                   className="px-3 py-1 text-sm font-mono text-primary/80 bg-primary/5 border border-primary/20 rounded-md"
@@ -105,8 +135,8 @@ const HeroSection = () => {
                 <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
               </Button>
               <Button size="lg" variant="outline" className="group">
-                <Download className="mr-2 w-4 h-4" />
-                Download Resume
+                <MessageCircle className="mr-2 w-4 h-4" />
+                Work with me
               </Button>
             </motion.div>
 
