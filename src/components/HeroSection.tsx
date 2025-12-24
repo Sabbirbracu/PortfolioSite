@@ -147,32 +147,21 @@ const HeroSection = () => {
               <span className="font-mono text-sm tracking-wider">Hello People, I'm</span>
             </motion.div>
 
-            {/* Name - Large Impact */}
+            {/* Name - Single Line */}
             <h1 className="relative">
-              <motion.span
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4, duration: 0.6 }}
-                className="block text-5xl md:text-7xl lg:text-8xl font-bold font-heading tracking-tighter text-foreground"
+                className="flex items-center justify-center gap-3 md:gap-4"
               >
-                SABBIR
-              </motion.span>
-              <motion.span
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5, duration: 0.6 }}
-                className="block text-5xl md:text-7xl lg:text-8xl font-bold font-heading tracking-tighter text-gradient"
-              >
-                AHMAD
-              </motion.span>
-              
-              {/* Decorative line */}
-              <motion.div
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ delay: 0.7, duration: 0.8 }}
-                className="absolute -right-4 top-1/2 w-20 h-px bg-gradient-to-r from-primary to-transparent hidden lg:block"
-              />
+                <span className="text-4xl md:text-5xl lg:text-6xl font-bold font-heading tracking-tighter text-foreground">
+                  SABBIR
+                </span>
+                <span className="text-4xl md:text-5xl lg:text-6xl font-bold font-heading tracking-tighter text-gradient">
+                  AHMAD
+                </span>
+              </motion.div>
             </h1>
 
             {/* Typing Role */}
@@ -274,19 +263,17 @@ const HeroSection = () => {
         </div>
       </div>
 
-      {/* Scroll indicator */}
+      {/* Scroll indicator - minimum 10px from social links */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.2, duration: 0.6 }}
-        className="absolute bottom-6 left-1/2 -translate-x-1/2"
+        className="absolute bottom-4 left-1/2 -translate-x-1/2"
       >
         <motion.div
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
-          className="flex flex-col items-center gap-1"
         >
-          <span className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground/50">Scroll</span>
           <div className="w-5 h-7 rounded-full border border-primary/30 flex justify-center pt-1.5">
             <motion.div
               animate={{ y: [0, 6, 0], opacity: [1, 0.3, 1] }}
