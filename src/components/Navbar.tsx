@@ -35,7 +35,7 @@ const Navbar = () => {
     >
       <nav className="section-container flex items-center justify-between h-16 md:h-20">
         {/* Logo */}
-        <a href="#" className="text-xl font-heading font-bold text-foreground hover:text-primary transition-colors">
+        <a href="/" className="text-xl font-heading font-bold text-foreground hover:text-primary transition-colors">
           SABBIR<span className="text-primary">.</span>
         </a>
 
