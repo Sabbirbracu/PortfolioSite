@@ -252,7 +252,7 @@ const HeroSection = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.9, duration: 0.6 }}
-              className="flex items-center gap-3 mt-4"
+              className="flex items-center gap-3 mt-2"
             >
               {[
                 { icon: Linkedin, href: "https://linkedin.com/in/sabbir-ahmad", hoverColor: "hover:text-[#0A66C2] hover:border-[#0A66C2]/50 hover:bg-[#0A66C2]/10" },
