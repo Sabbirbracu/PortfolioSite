@@ -1,33 +1,35 @@
 import { motion } from "framer-motion";
-import { Briefcase, Code, Lightbulb } from "lucide-react";
+import { Briefcase, Lightbulb, ArrowRight } from "lucide-react";
 
 const experiences = [
   {
     icon: Briefcase,
     role: "Full Stack Developer",
-    scope: "Qullia – Software Agency (Contract)",
-    location: "Dhaka (Remote)",
+    type: "Contract",
+    company: "Qullia – Software Agency",
+    location: "Remote",
     period: "Jan 2024 – Present",
-    impact: "Delivered 17+ production-grade web applications using React.js, Next.js, Node.js, Express & Laravel ensuring 100% deployment success and 99.9% uptime across multi-tenant platforms.",
-    details: [
-      "Engineered modular frontend architecture with Tailwind CSS, Bootstrap, Redux Toolkit, and TypeScript, improving code reusability and UI scalability.",
-      "Designed and developed RESTful APIs and optimized database schemas (MongoDB, PostgreSQL, MySQL), reducing data fetch latency by 35%.",
-      "Implemented CI/CD pipelines using GitHub Actions, Docker, and Render, accelerating release cycles by 45% with zero manual intervention.",
-      "Integrated secure payment and authentication systems (SSLCommerz, JWT, OAuth2.0).",
-      "Collaborated with designers via Figma and ensured responsive UIs improving cross-device experience by 50%.",
-      "Contributed to AI-integrated modules & implemented system design patterns for scalability and maintainability.",
+    summary: "Delivered 17+ production-grade web applications using modern full-stack architectures, ensuring high availability, scalable systems, and clean deployment pipelines.",
+    impact: [
+      "Built scalable frontend & backend systems with React, Node.js, Laravel, and MongoDB",
+      "Designed REST APIs, optimized databases, and improved performance by 35%",
+      "Automated CI/CD pipelines, reducing release cycles by 45%",
     ],
-    highlights: ["React.js", "Next.js", "Node.js", "Laravel", "CI/CD", "System Design"],
+    stack: ["React", "Node", "Express", "MongoDB", "Laravel", "CI/CD", "System Design"],
   },
   {
     icon: Lightbulb,
     role: "Research & Exploration",
-    scope: "Brac University",
+    type: "",
+    company: "Brac University",
     location: "AI & Computer Vision",
     period: "2025 – Present",
-    impact: "Exploring machine learning applications with focus on computer vision. Building CNN-based solutions for real-world image processing challenges.",
-    details: [],
-    highlights: ["Deep Learning", "Image Processing", "PyTorch", "TensorFlow", "NumPy", "Pandas"],
+    summary: "Exploring machine learning applications with focus on computer vision. Building CNN-based solutions for real-world image processing challenges.",
+    impact: [
+      "Researching deep learning models for image classification and object detection",
+      "Building CNN-based solutions for real-world processing challenges",
+    ],
+    stack: ["PyTorch", "TensorFlow", "NumPy", "Pandas", "OpenCV", "Deep Learning"],
   },
 ];
 
@@ -51,76 +53,77 @@ const ExperienceSection = () => {
           </h2>
         </motion.div>
 
-        {/* Timeline */}
-        <div className="relative max-w-3xl mx-auto">
-          {/* Timeline Line */}
-          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-primary/50 via-primary/20 to-transparent" />
-          
+        {/* Experience Cards */}
+        <div className="max-w-4xl mx-auto grid gap-6">
           {experiences.map((exp, index) => (
             <motion.div
               key={exp.role}
-              initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.2, duration: 0.5 }}
-              className={`relative pl-20 md:pl-0 md:w-1/2 mb-12 ${
-                index % 2 === 0 ? "md:pr-12 md:text-right" : "md:ml-auto md:pl-12"
-              }`}
+              transition={{ delay: index * 0.15, duration: 0.5 }}
+              className="glass-card-hover p-6 md:p-8"
             >
-              {/* Timeline Dot */}
-              <div 
-                className={`absolute left-6 md:left-auto ${
-                  index % 2 === 0 ? "md:right-[-8px]" : "md:left-[-8px]"
-                } top-2 w-4 h-4 rounded-full bg-primary glow-border`} 
-              />
-              
-              {/* Icon - Mobile */}
-              <div className="absolute left-0 top-0 md:hidden">
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
-                  <exp.icon className="w-6 h-6 text-primary" />
+              {/* Header Row */}
+              <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                    <exp.icon className="w-6 h-6 text-primary" />
+                  </div>
+                  <div>
+                    <span className="text-xs font-mono text-primary block mb-1">
+                      {exp.period}
+                    </span>
+                    <h3 className="text-xl font-heading font-bold text-foreground">
+                      {exp.role} {exp.type && <span className="text-muted-foreground font-normal">({exp.type})</span>}
+                    </h3>
+                    <p className="text-muted-foreground text-sm">
+                      {exp.company} · {exp.location}
+                    </p>
+                  </div>
                 </div>
               </div>
 
-              {/* Card */}
-              <div className="glass-card-hover p-6">
-                {/* Icon - Desktop */}
-                <div className={`hidden md:flex w-12 h-12 rounded-xl bg-primary/10 items-center justify-center mb-4 ${
-                  index % 2 === 0 ? "ml-auto" : ""
-                }`}>
-                  <exp.icon className="w-6 h-6 text-primary" />
-                </div>
+              {/* Summary */}
+              <p className="text-muted-foreground text-sm leading-relaxed mb-4 md:pl-16">
+                {exp.summary}
+              </p>
 
-                <span className="text-xs font-mono text-primary mb-2 block">
-                  {exp.period}
-                </span>
-                <h3 className="text-xl font-heading font-bold text-foreground mb-1">
-                  {exp.role}
-                </h3>
-                <p className="text-primary font-medium">{exp.scope}</p>
-                <p className="text-muted-foreground text-xs mb-3">{exp.location}</p>
-                <p className="text-muted-foreground text-sm leading-relaxed mb-4">
-                  {exp.impact}
-                </p>
-                {exp.details.length > 0 && (
-                  <ul className="text-muted-foreground text-xs leading-relaxed mb-4 space-y-1 list-disc list-inside">
-                    {exp.details.map((detail, i) => (
-                      <li key={i}>{detail}</li>
-                    ))}
-                  </ul>
-                )}
-                
-                <div className={`flex flex-wrap gap-2 ${
-                  index % 2 === 0 ? "md:justify-end" : ""
-                }`}>
-                  {exp.highlights.map((highlight) => (
+              {/* Key Impact */}
+              <div className="md:pl-16 mb-4">
+                <h4 className="text-xs font-mono text-primary/70 uppercase tracking-wider mb-2">
+                  Key Impact
+                </h4>
+                <ul className="space-y-1.5">
+                  {exp.impact.map((item, i) => (
+                    <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
+                      <span className="text-primary mt-1.5 w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Tech Stack */}
+              <div className="md:pl-16 mb-4">
+                <div className="flex flex-wrap gap-2">
+                  {exp.stack.map((tech) => (
                     <span
-                      key={highlight}
-                      className="px-2 py-1 text-xs bg-secondary/50 text-muted-foreground rounded"
+                      key={tech}
+                      className="px-2.5 py-1 text-xs bg-secondary/50 text-muted-foreground rounded border border-border/50"
                     >
-                      {highlight}
+                      {tech}
                     </span>
                   ))}
                 </div>
+              </div>
+
+              {/* Action */}
+              <div className="md:pl-16">
+                <button className="inline-flex items-center gap-1.5 text-sm text-primary hover:text-primary/80 transition-colors group">
+                  <span>View Details</span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </button>
               </div>
             </motion.div>
           ))}
