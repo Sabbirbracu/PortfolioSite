@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ExternalLink, Github, FileText, ArrowUpRight, Globe } from "lucide-react";
+import { ExternalLink, Github, ArrowUpRight, Layers, Zap } from "lucide-react";
 
 const projects = [
   {
@@ -7,7 +7,7 @@ const projects = [
     tagline: "Matrimony Platform",
     description: "A full-featured matrimony platform with real-time chat, secure authentication, role-based access, and scalable profile & search system.",
     stack: ["React", "Node.js", "Express", "MongoDB", "Socket.io"],
-    status: "Live",
+    year: "2024",
     banner: "https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=800&h=400&fit=crop",
     demoLink: "#",
     githubLink: "#",
@@ -17,7 +17,7 @@ const projects = [
     tagline: "Smart Route Sharing",
     description: "Dynamic team formation with location-based matching. Features cost-splitting logic and API-driven architecture for ride sharing.",
     stack: ["React", "Node.js", "Express", "MongoDB", "Maps API"],
-    status: "Live",
+    year: "2024",
     banner: "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=800&h=400&fit=crop",
     demoLink: "#",
     githubLink: "#",
@@ -27,7 +27,7 @@ const projects = [
     tagline: "SaaS Course Platform",
     description: "Multi-role educational platform with Admin, Teacher, and Student roles. Email-based enrollment and section-wise course management.",
     stack: ["React", "Node.js", "MongoDB", "JWT", "Nodemailer"],
-    status: "Live",
+    year: "2023",
     banner: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=800&h=400&fit=crop",
     demoLink: "#",
     githubLink: "#",
@@ -37,7 +37,7 @@ const projects = [
     tagline: "Content Platform",
     description: "Content-driven web application with clean UI, optimized frontend performance, and REST API backend deployed on modern cloud infrastructure.",
     stack: ["React", "Tailwind", "Node.js", "Express", "MongoDB"],
-    status: "Live",
+    year: "2023",
     banner: "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&h=400&fit=crop",
     demoLink: "#",
     githubLink: "#",
@@ -46,8 +46,17 @@ const projects = [
 
 const ProjectsSection = () => {
   return (
-    <section id="projects" className="py-24 relative">
-      <div className="section-container">
+    <section id="projects" className="py-24 relative overflow-hidden">
+      {/* Background Grid Effect */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `linear-gradient(hsl(var(--primary) / 0.3) 1px, transparent 1px),
+                           linear-gradient(90deg, hsl(var(--primary) / 0.3) 1px, transparent 1px)`,
+          backgroundSize: '60px 60px'
+        }} />
+      </div>
+
+      <div className="section-container relative z-10">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -79,77 +88,112 @@ const ProjectsSection = () => {
               transition={{ delay: index * 0.1, duration: 0.5 }}
               className="group relative"
             >
+              {/* Animated Border Glow */}
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-primary via-cyan-500 to-primary rounded-2xl opacity-0 group-hover:opacity-75 blur-sm transition-all duration-500 group-hover:duration-200" />
+              
               {/* Card Container */}
-              <div className="relative rounded-2xl overflow-hidden bg-gradient-to-b from-secondary/80 to-background border border-border/50 hover:border-primary/30 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/5">
+              <div className="relative rounded-2xl overflow-hidden bg-background/95 backdrop-blur-xl border border-border/50">
                 
+                {/* Corner Accents */}
+                <div className="absolute top-0 left-0 w-8 h-8 border-l-2 border-t-2 border-primary/50 rounded-tl-2xl" />
+                <div className="absolute top-0 right-0 w-8 h-8 border-r-2 border-t-2 border-primary/50 rounded-tr-2xl" />
+                <div className="absolute bottom-0 left-0 w-8 h-8 border-l-2 border-b-2 border-primary/50 rounded-bl-2xl" />
+                <div className="absolute bottom-0 right-0 w-8 h-8 border-r-2 border-b-2 border-primary/50 rounded-br-2xl" />
+
                 {/* Banner Image */}
-                <div className="relative h-52 overflow-hidden">
+                <div className="relative h-48 overflow-hidden">
                   <img
                     src={project.banner}
                     alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:brightness-110"
                   />
+                  {/* Scanline Effect */}
+                  <div className="absolute inset-0 opacity-20 pointer-events-none" style={{
+                    backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.1) 2px, rgba(0,0,0,0.1) 4px)'
+                  }} />
                   {/* Overlay Gradient */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent" />
                   
-                  {/* Status Badge */}
+                  {/* Year Badge */}
                   <div className="absolute top-4 left-4">
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-green-500/20 text-green-400 border border-green-500/30 backdrop-blur-sm">
-                      <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-                      {project.status}
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-primary/20 text-primary border border-primary/30 backdrop-blur-md">
+                      <Zap className="w-3 h-3" />
+                      {project.year}
                     </span>
                   </div>
 
-                  {/* Quick Actions - Top Right */}
-                  <div className="absolute top-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <a
+                  {/* Floating Action Buttons */}
+                  <div className="absolute top-4 right-4 flex gap-2">
+                    <motion.a
                       href={project.demoLink}
-                      className="w-9 h-9 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white hover:bg-primary hover:text-primary-foreground transition-colors"
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="w-10 h-10 rounded-lg bg-background/80 backdrop-blur-md flex items-center justify-center text-foreground border border-border/50 hover:border-primary hover:text-primary transition-all shadow-lg"
                     >
-                      <Globe className="w-4 h-4" />
-                    </a>
-                    <a
+                      <ExternalLink className="w-4 h-4" />
+                    </motion.a>
+                    <motion.a
                       href={project.githubLink}
-                      className="w-9 h-9 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white hover:bg-primary hover:text-primary-foreground transition-colors"
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="w-10 h-10 rounded-lg bg-background/80 backdrop-blur-md flex items-center justify-center text-foreground border border-border/50 hover:border-primary hover:text-primary transition-all shadow-lg"
                     >
                       <Github className="w-4 h-4" />
-                    </a>
+                    </motion.a>
+                  </div>
+
+                  {/* Project Title Overlay */}
+                  <div className="absolute bottom-4 left-4 right-4">
+                    <div className="flex items-center gap-2 mb-1">
+                      <Layers className="w-4 h-4 text-primary" />
+                      <span className="text-primary text-xs font-mono uppercase tracking-wider">{project.tagline}</span>
+                    </div>
+                    <h3 className="text-2xl font-bold font-heading text-foreground">
+                      {project.title}
+                    </h3>
                   </div>
                 </div>
 
                 {/* Content */}
-                <div className="p-6">
-                  {/* Header */}
-                  <div className="flex items-start justify-between mb-3">
-                    <div>
-                      <h3 className="text-xl font-bold font-heading text-foreground group-hover:text-primary transition-colors">
-                        {project.title}
-                      </h3>
-                      <p className="text-primary/80 text-sm font-medium">{project.tagline}</p>
-                    </div>
-                    <ArrowUpRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
-                  </div>
-
+                <div className="p-6 pt-4">
                   {/* Description */}
-                  <p className="text-muted-foreground text-sm leading-relaxed mb-5 line-clamp-2">
+                  <p className="text-muted-foreground text-sm leading-relaxed mb-5">
                     {project.description}
                   </p>
 
                   {/* Tech Stack */}
-                  <div className="flex flex-wrap gap-2">
-                    {project.stack.map((tech) => (
+                  <div className="flex flex-wrap gap-2 mb-5">
+                    {project.stack.map((tech, i) => (
                       <span
                         key={tech}
-                        className="px-2.5 py-1 text-xs font-mono bg-primary/5 text-primary/90 rounded-md border border-primary/10 hover:border-primary/30 transition-colors"
+                        className="relative px-3 py-1.5 text-xs font-mono text-foreground/90 rounded-md overflow-hidden group/tag"
                       >
-                        {tech}
+                        {/* Tag Background */}
+                        <span className="absolute inset-0 bg-gradient-to-r from-primary/10 to-cyan-500/10 border border-primary/20 rounded-md" />
+                        {/* Tag Shine Effect */}
+                        <span className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/5 to-transparent -translate-x-full group-hover/tag:translate-x-full transition-transform duration-700" />
+                        <span className="relative">{tech}</span>
                       </span>
                     ))}
                   </div>
+
+                  {/* View Project Link */}
+                  <div className="flex items-center justify-between pt-4 border-t border-border/30">
+                    <span className="text-xs font-mono text-muted-foreground uppercase tracking-wider">
+                      Full Stack Project
+                    </span>
+                    <motion.button
+                      whileHover={{ x: 5 }}
+                      className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-primary/80 transition-colors"
+                    >
+                      <span>Explore</span>
+                      <ArrowUpRight className="w-4 h-4" />
+                    </motion.button>
+                  </div>
                 </div>
 
-                {/* Bottom Glow Effect */}
-                <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                {/* Bottom Neon Line */}
+                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent opacity-50 group-hover:opacity-100 transition-opacity" />
               </div>
             </motion.div>
           ))}
