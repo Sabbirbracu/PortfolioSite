@@ -1,5 +1,9 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight, ExternalLink, Github, Layers, Zap } from "lucide-react";
+import { Link } from "react-router-dom";
+
+// Helper to check if link is internal route
+const isInternalLink = (link: string) => link.startsWith("/");
 
 const projects = [
   {
@@ -20,8 +24,8 @@ const projects = [
     stack: ["React", "Node.js", "Express", "MongoDB", "Maps API"],
     year: "2024",
     banner: "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=800&h=400&fit=crop",
-    demoLink: "#",
-    githubLink: "#",
+    demoLink: "/not-found",
+    githubLink: "/not-found",
   },
   {
     title: "LearnHub Pro",
@@ -30,8 +34,8 @@ const projects = [
     stack: ["React", "Node.js", "MongoDB", "JWT", "Nodemailer"],
     year: "2023",
     banner: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=800&h=400&fit=crop",
-    demoLink: "#",
-    githubLink: "#",
+    demoLink: "/not-found",
+    githubLink: "/not-found",
   },
   {
     title: "The Daily Drift",
@@ -40,8 +44,8 @@ const projects = [
     stack: ["React", "Tailwind", "Node.js", "Express", "MongoDB"],
     year: "2023",
     banner: "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&h=400&fit=crop",
-    demoLink: "#",
-    githubLink: "#",
+    demoLink: "https://thedailydrift.qullia.com/",
+    githubLink: "https://github.com/Sabbirbracu/The-Daily-Drift-Frontend",
   },
 ];
 
@@ -125,22 +129,48 @@ const ProjectsSection = () => {
 
                   {/* Floating Action Buttons */}
                   <div className="absolute top-4 right-4 flex gap-2">
-                    <motion.a
-                      href={project.demoLink}
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="w-10 h-10 rounded-lg bg-background/80 backdrop-blur-md flex items-center justify-center text-foreground border border-border/50 hover:border-primary hover:text-primary transition-all shadow-lg"
-                    >
-                      <ExternalLink className="w-4 h-4" />
-                    </motion.a>
-                    <motion.a
-                      href={project.githubLink}
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="w-10 h-10 rounded-lg bg-background/80 backdrop-blur-md flex items-center justify-center text-foreground border border-border/50 hover:border-primary hover:text-primary transition-all shadow-lg"
-                    >
-                      <Github className="w-4 h-4" />
-                    </motion.a>
+                    {isInternalLink(project.demoLink) ? (
+                      <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
+                        <Link
+                          to={project.demoLink}
+                          className="w-10 h-10 rounded-lg bg-background/80 backdrop-blur-md flex items-center justify-center text-foreground border border-border/50 hover:border-primary hover:text-primary transition-all shadow-lg"
+                        >
+                          <ExternalLink className="w-4 h-4" />
+                        </Link>
+                      </motion.div>
+                    ) : (
+                      <motion.a
+                        href={project.demoLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="w-10 h-10 rounded-lg bg-background/80 backdrop-blur-md flex items-center justify-center text-foreground border border-border/50 hover:border-primary hover:text-primary transition-all shadow-lg"
+                      >
+                        <ExternalLink className="w-4 h-4" />
+                      </motion.a>
+                    )}
+                    {isInternalLink(project.githubLink) ? (
+                      <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
+                        <Link
+                          to={project.githubLink}
+                          className="w-10 h-10 rounded-lg bg-background/80 backdrop-blur-md flex items-center justify-center text-foreground border border-border/50 hover:border-primary hover:text-primary transition-all shadow-lg"
+                        >
+                          <Github className="w-4 h-4" />
+                        </Link>
+                      </motion.div>
+                    ) : (
+                      <motion.a
+                        href={project.githubLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="w-10 h-10 rounded-lg bg-background/80 backdrop-blur-md flex items-center justify-center text-foreground border border-border/50 hover:border-primary hover:text-primary transition-all shadow-lg"
+                      >
+                        <Github className="w-4 h-4" />
+                      </motion.a>
+                    )}
                   </div>
 
                   {/* Project Title Overlay */}

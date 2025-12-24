@@ -191,7 +191,7 @@ const HeroSection = () => {
               transition={{ delay: 0.7, duration: 0.6 }}
               className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed"
             >
-              Full Stack Software Engineer with hands-on experience delivering end-to-end web platforms in production environments.<br />
+              Full Stack Software Engineer with hands-on experience delivering end-to-end web platforms in production environments.
               I focus on scalable system design and am actively expanding into AI/ML and Computer Vision to build intelligent, future-ready applications.
               
             </motion.p>

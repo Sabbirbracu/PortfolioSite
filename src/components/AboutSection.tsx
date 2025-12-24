@@ -42,29 +42,29 @@ const AboutSection = () => {
           </h2>
         </motion.div>
 
-        <div className="grid lg:grid-cols-5 gap-12 items-center">
+        <div className="grid lg:grid-cols-5 gap-12 items-start">
           {/* Image Side - Smaller, 2 cols */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
-            className="lg:col-span-2 relative group"
+            className="lg:col-span-2 relative group lg:sticky lg:top-24"
           >
-            <div className="relative max-w-xs mx-auto">
+            <div className="relative max-w-sm mx-auto">
               {/* Hexagon-ish Frame */}
               <div className="relative">
                 {/* Glow Effect */}
                 <div className="absolute -inset-4 bg-gradient-to-br from-primary/30 via-transparent to-cyan-500/30 rounded-3xl blur-2xl opacity-60 group-hover:opacity-80 transition-opacity" />
                 
                 {/* Main Card */}
-                <div className="relative bg-background/80 backdrop-blur-sm rounded-2xl p-3 border border-primary/20">
+                <div className="relative bg-background/80 backdrop-blur-sm rounded-2xl p-4 border border-primary/20">
                   {/* Image Container */}
                   <div className="relative rounded-xl overflow-hidden">
                     <img
                       src="/img.png"
                       alt="Sabbir Ahmad"
-                      className="w-full aspect-[5/6] object-cover"
+                      className="w-full aspect-[4/5] object-cover"
                     />
                     
                     {/* Scanline Effect */}
@@ -94,7 +94,7 @@ const AboutSection = () => {
                   </div>
 
                   {/* Tech Icons Row */}
-                  <div className="mt-3 flex items-center justify-between px-2">
+                  <div className="mt-4 flex items-center justify-between px-3">
                     {skills.map((skill, index) => (
                       <motion.div
                         key={skill.label}
@@ -103,12 +103,12 @@ const AboutSection = () => {
                         viewport={{ once: true }}
                         transition={{ delay: 0.5 + index * 0.1 }}
                         whileHover={{ y: -3 }}
-                        className="flex flex-col items-center gap-1"
+                        className="flex flex-col items-center gap-1.5"
                       >
-                        <div className="w-9 h-9 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center hover:bg-primary/20 transition-colors">
-                          <skill.icon className="w-4 h-4 text-primary" />
+                        <div className="w-11 h-11 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center hover:bg-primary/20 transition-colors">
+                          <skill.icon className="w-5 h-5 text-primary" />
                         </div>
-                        <span className="text-[9px] font-mono text-muted-foreground">{skill.label}</span>
+                        <span className="text-[10px] font-mono text-muted-foreground">{skill.label}</span>
                       </motion.div>
                     ))}
                   </div>
@@ -144,20 +144,21 @@ const AboutSection = () => {
               {/* Terminal Content */}
               <div className="p-6 space-y-4 text-muted-foreground">
                 <p className="leading-relaxed">
-                  <span className="text-primary font-mono">{'>'}</span> Full Stack Software Engineer in my final semester of 
-                  <span className="text-foreground font-medium"> Computer Science</span> at BRAC University.
+                  <span className="text-primary font-mono">{'>'}</span> Currently in my final semester of 
+                  <span className="text-foreground font-medium"> Computer Science and Engineering</span> at BRAC University, where I have developed a strong foundation in software engineering principles alongside practical, real-world application.
                 </p>
                 
                 <p className="leading-relaxed">
-                  <span className="text-primary font-mono">{'>'}</span> Delivered <span className="text-primary font-mono font-bold">17+</span> production-grade projects for startups and international clients—from system architecture to cloud deployment.
+                  <span className="text-primary font-mono">{'>'}</span> Worked extensively on production-grade web systems, contributing to <span className="text-primary font-mono font-bold">17+</span> live projects for startups and international clients. My experience spans the complete development lifecycle—system planning, backend architecture, frontend implementation, deployment, and post-release optimization.
                 </p>
                 
                 <p className="leading-relaxed">
-                  <span className="text-primary font-mono">{'>'}</span> Exploring <span className="text-foreground font-medium">AI/ML & Computer Vision</span> to build intelligent web products.
+                  <span className="text-primary font-mono">{'>'}</span> Focused on building <span className="text-foreground font-medium">scalable and maintainable systems</span>, clean architecture, modular design, and long-term sustainability rather than short-term solutions.
                 </p>
 
+
                 <p className="leading-relaxed">
-                  <span className="text-primary font-mono">{'>'}</span> I value clean architecture, maintainable codebases, and engineering decisions that scale beyond the MVP stage.
+                  <span className="text-primary font-mono">{'>'}</span> Actively exploring <span className="text-foreground font-medium">AI/ML & Computer Vision</span>, with the goal of integrating intelligent features into web platforms and researching how data-driven components can enhance modern applications.
                 </p>
 
                 {/* Blinking Cursor */}
