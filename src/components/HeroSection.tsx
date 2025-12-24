@@ -37,17 +37,6 @@ const HeroSection = () => {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="space-y-8"
           >
-            {/* Availability Badge */}
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.5 }}
-            >
-              <span className="badge-available">
-                <span className="w-2 h-2 rounded-full bg-neon-green animate-pulse" />
-                Open to Remote & Onsite Opportunities
-              </span>
-            </motion.div>
 
             {/* Main Title */}
             <div className="space-y-4">
@@ -177,8 +166,21 @@ const HeroSection = () => {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.5, duration: 0.8 }}
-            className="hidden lg:flex items-center justify-center"
+            className="hidden lg:flex flex-col items-center justify-center gap-6"
           >
+            {/* Availability Badge - Moved to right side */}
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.5 }}
+              className="self-end"
+            >
+              <span className="badge-available">
+                <span className="w-2 h-2 rounded-full bg-neon-green animate-pulse" />
+                Open to Remote & Onsite Opportunities
+              </span>
+            </motion.div>
+
             <div className="relative w-80 h-80">
               {/* Glow Effect */}
               <div className="absolute inset-0 rounded-full bg-primary/20 blur-3xl animate-pulse-glow" />
