@@ -53,20 +53,35 @@ const ExperienceSection = () => {
           </h2>
         </motion.div>
 
-        {/* Experience Cards */}
-        <div className="max-w-4xl mx-auto grid gap-6">
+        {/* Timeline */}
+        <div className="relative max-w-5xl mx-auto">
+          {/* Timeline Line */}
+          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-primary/50 via-primary/20 to-transparent" />
+
           {experiences.map((exp, index) => (
             <motion.div
               key={exp.role}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.15, duration: 0.5 }}
-              className="glass-card-hover p-6 md:p-8"
+              transition={{ delay: index * 0.2, duration: 0.5 }}
+              className={`relative pl-20 md:pl-0 mb-12 ${
+                index % 2 === 0 
+                  ? "md:w-[calc(50%-24px)] md:mr-auto" 
+                  : "md:w-[calc(50%-24px)] md:ml-auto"
+              }`}
             >
-              {/* Header Row */}
-              <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
-                <div className="flex items-start gap-4">
+              {/* Timeline Dot */}
+              <div 
+                className={`absolute left-6 md:left-auto top-6 w-4 h-4 rounded-full bg-primary glow-border z-10 ${
+                  index % 2 === 0 ? "md:right-[-32px]" : "md:left-[-32px]"
+                }`} 
+              />
+
+              {/* Card */}
+              <div className="glass-card-hover p-6">
+                {/* Header Row */}
+                <div className="flex items-start gap-4 mb-4">
                   <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
                     <exp.icon className="w-6 h-6 text-primary" />
                   </div>
@@ -74,7 +89,7 @@ const ExperienceSection = () => {
                     <span className="text-xs font-mono text-primary block mb-1">
                       {exp.period}
                     </span>
-                    <h3 className="text-xl font-heading font-bold text-foreground">
+                    <h3 className="text-lg font-heading font-bold text-foreground">
                       {exp.role} {exp.type && <span className="text-muted-foreground font-normal">({exp.type})</span>}
                     </h3>
                     <p className="text-muted-foreground text-sm">
@@ -82,44 +97,42 @@ const ExperienceSection = () => {
                     </p>
                   </div>
                 </div>
-              </div>
 
-              {/* Summary */}
-              <p className="text-muted-foreground text-sm leading-relaxed mb-4 md:pl-16">
-                {exp.summary}
-              </p>
+                {/* Summary */}
+                <p className="text-muted-foreground text-sm leading-relaxed mb-4">
+                  {exp.summary}
+                </p>
 
-              {/* Key Impact */}
-              <div className="md:pl-16 mb-4">
-                <h4 className="text-xs font-mono text-primary/70 uppercase tracking-wider mb-2">
-                  Key Impact
-                </h4>
-                <ul className="space-y-1.5">
-                  {exp.impact.map((item, i) => (
-                    <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
-                      <span className="text-primary mt-1.5 w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Tech Stack */}
-              <div className="md:pl-16 mb-4">
-                <div className="flex flex-wrap gap-2">
-                  {exp.stack.map((tech) => (
-                    <span
-                      key={tech}
-                      className="px-2.5 py-1 text-xs bg-secondary/50 text-muted-foreground rounded border border-border/50"
-                    >
-                      {tech}
-                    </span>
-                  ))}
+                {/* Key Impact */}
+                <div className="mb-4">
+                  <h4 className="text-xs font-mono text-primary/70 uppercase tracking-wider mb-2">
+                    Key Impact
+                  </h4>
+                  <ul className="space-y-1.5">
+                    {exp.impact.map((item, i) => (
+                      <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
+                        <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-              </div>
 
-              {/* Action */}
-              <div className="md:pl-16">
+                {/* Tech Stack */}
+                <div className="mb-4">
+                  <div className="flex flex-wrap gap-2">
+                    {exp.stack.map((tech) => (
+                      <span
+                        key={tech}
+                        className="px-2.5 py-1 text-xs bg-secondary/50 text-muted-foreground rounded border border-border/50"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Action */}
                 <button className="inline-flex items-center gap-1.5 text-sm text-primary hover:text-primary/80 transition-colors group">
                   <span>View Details</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
