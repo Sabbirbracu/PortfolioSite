@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Download } from "lucide-react";
+import { ArrowRight, Download, Linkedin, Github, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import AnimatedGrid from "./AnimatedGrid";
 
@@ -98,7 +98,7 @@ const HeroSection = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8, duration: 0.6 }}
-              className="flex flex-wrap gap-4 pt-4"
+              className="flex flex-wrap items-center gap-4 pt-4"
             >
               <Button size="lg" className="group">
                 View Projects
@@ -108,6 +108,37 @@ const HeroSection = () => {
                 <Download className="mr-2 w-4 h-4" />
                 Download Resume
               </Button>
+            </motion.div>
+
+            {/* Social Links */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.9, duration: 0.6 }}
+              className="flex items-center gap-4"
+            >
+              <a
+                href="https://linkedin.com/in/sabbir-ahmad"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative w-12 h-12 rounded-full bg-[#0A66C2]/10 border border-[#0A66C2]/30 flex items-center justify-center transition-all duration-300 hover:bg-[#0A66C2] hover:border-[#0A66C2] hover:shadow-[0_0_20px_rgba(10,102,194,0.5)] hover:scale-110"
+              >
+                <Linkedin className="w-5 h-5 text-[#0A66C2] group-hover:text-white transition-colors duration-300" />
+              </a>
+              <a
+                href="https://github.com/sabbir-ahmad"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative w-12 h-12 rounded-full bg-foreground/5 border border-foreground/20 flex items-center justify-center transition-all duration-300 hover:bg-foreground hover:border-foreground hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:scale-110"
+              >
+                <Github className="w-5 h-5 text-foreground/80 group-hover:text-background transition-colors duration-300" />
+              </a>
+              <a
+                href="mailto:sabbir@example.com"
+                className="group relative w-12 h-12 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center transition-all duration-300 hover:bg-primary hover:border-primary hover:shadow-[0_0_20px_hsl(var(--primary)/0.5)] hover:scale-110"
+              >
+                <Mail className="w-5 h-5 text-primary group-hover:text-primary-foreground transition-colors duration-300" />
+              </a>
             </motion.div>
           </motion.div>
 
