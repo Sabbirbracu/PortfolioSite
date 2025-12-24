@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { AnimatePresence, motion } from "framer-motion";
+import { Menu, X } from "lucide-react";
+import { useEffect, useState } from "react";
 
 const navLinks = [
   { label: "Projects", href: "#projects" },
@@ -36,7 +36,7 @@ const Navbar = () => {
       <nav className="section-container flex items-center justify-between h-16 md:h-20">
         {/* Logo */}
         <a href="#" className="text-xl font-heading font-bold text-foreground hover:text-primary transition-colors">
-          SA<span className="text-primary">.</span>
+          SABBIR<span className="text-primary">.</span>
         </a>
 
         {/* Desktop Navigation */}

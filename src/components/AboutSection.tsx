@@ -1,6 +1,6 @@
-import { motion } from "framer-motion";
-import { GraduationCap, Globe, Mail, Code, Terminal, Database, Cpu, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
+import { Code, Cpu, Database, Globe, GraduationCap, Mail, Terminal, Zap } from "lucide-react";
 
 const AboutSection = () => {
   const skills = [
@@ -62,7 +62,7 @@ const AboutSection = () => {
                   {/* Image Container */}
                   <div className="relative rounded-xl overflow-hidden">
                     <img
-                      src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=480&fit=crop&crop=face"
+                      src="/img.png"
                       alt="Sabbir Ahmad"
                       className="w-full aspect-[5/6] object-cover"
                     />
@@ -76,7 +76,7 @@ const AboutSection = () => {
                     <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
 
                     {/* Status Badge */}
-                    <div className="absolute top-3 left-3">
+                    {/* <div className="absolute top-3 left-3">
                       <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-background/80 backdrop-blur-sm border border-primary/20">
                         <span className="relative flex h-2 w-2">
                           <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
@@ -84,7 +84,7 @@ const AboutSection = () => {
                         </span>
                         <span className="text-xs font-mono text-foreground/80">Available</span>
                       </div>
-                    </div>
+                    </div> */}
 
                     {/* Name at Bottom */}
                     <div className="absolute bottom-3 left-3 right-3">

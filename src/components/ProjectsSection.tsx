@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ExternalLink, Github, ArrowUpRight, Layers, Zap } from "lucide-react";
+import { ArrowUpRight, ExternalLink, Github, Layers, Zap } from "lucide-react";
 
 const projects = [
   {
@@ -9,8 +9,9 @@ const projects = [
     stack: ["React", "Node.js", "Express", "MongoDB", "Socket.io"],
     year: "2024",
     banner: "https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=800&h=400&fit=crop",
-    demoLink: "#",
-    githubLink: "#",
+    // banner: "/Shaadimart.png",
+    demoLink: "https://biye-bandhan.vercel.app/",
+    githubLink: "https://github.com/Sabbirbracu/ShaadimartBD",
   },
   {
     title: "Ride Partner Finder",
@@ -105,7 +106,7 @@ const ProjectsSection = () => {
                   <img
                     src={project.banner}
                     alt={project.title}
-                    className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:brightness-110"
+                    className="w-full h-full object-contain transition-all duration-700 group-hover:scale-110 group-hover:brightness-110"
                   />
                   {/* Scanline Effect */}
                   <div className="absolute inset-0 opacity-20 pointer-events-none" style={{

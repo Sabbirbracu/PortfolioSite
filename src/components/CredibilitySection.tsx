@@ -14,7 +14,7 @@ const metrics = [
   },
   {
     icon: Clock,
-    value: "3+",
+    value: "2+",
     label: "Years Engineering Practice",
   },
   {

@@ -13,7 +13,10 @@ const Footer = () => {
               Sabbir Ahmad
             </h3>
             <p className="text-sm text-muted-foreground">
-              Full Stack Software Engineer
+              Merul Badda, Dhaka, Bangladesh
+            </p>
+            <p>
+              +8801304867542
             </p>
           </div>
 

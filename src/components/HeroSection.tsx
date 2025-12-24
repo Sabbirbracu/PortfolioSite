@@ -1,7 +1,7 @@
-import { motion } from "framer-motion";
-import { ArrowRight, Linkedin, Github, Mail, Terminal, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { ArrowRight, Github, Linkedin, Mail, Terminal, Zap } from "lucide-react";
+import { useEffect, useState } from "react";
 
 const roles = [
   "Full Stack Software Engineer",
@@ -10,7 +10,7 @@ const roles = [
 ];
 
 const codeSnippets = [
-  { code: "const build = () => 🚀", top: "15%", left: "5%", delay: 0 },
+  { code: "const build = () => sabbir", top: "15%", left: "5%", delay: 0 },
   { code: "async deploy()", top: "25%", right: "8%", delay: 0.5 },
   { code: "{ status: 'success' }", top: "70%", left: "3%", delay: 1 },
   { code: "npm run dev", top: "80%", right: "5%", delay: 1.5 },
@@ -144,7 +144,7 @@ const HeroSection = () => {
               className="inline-flex items-center gap-2 text-primary/80"
             >
               <Terminal className="w-4 h-4" />
-              <span className="font-mono text-sm tracking-wider">Hello People, I'm</span>
+              <span className="font-mono text-sm tracking-wider">Hello, I'm</span>
             </motion.div>
 
             {/* Name - Single Line */}
@@ -191,10 +191,9 @@ const HeroSection = () => {
               transition={{ delay: 0.7, duration: 0.6 }}
               className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed"
             >
-              I design, build, and scale production-grade web systems.{" "}
-              <span className="text-foreground">
-                Currently exploring AI/ML and Computer Vision to enhance real-world applications.
-              </span>
+              Full Stack Software Engineer with hands-on experience delivering end-to-end web platforms in production environments.<br />
+              I focus on scalable system design and am actively expanding into AI/ML and Computer Vision to build intelligent, future-ready applications.
+              
             </motion.p>
 
             {/* Tech Stack - Moved up */}
@@ -202,7 +201,7 @@ const HeroSection = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.75, duration: 0.6 }}
-              className="flex flex-wrap justify-center gap-4 text-xs text-muted-foreground/60 pt-2"
+              className="flex flex-wrap justify-center gap-4 text-s text-foreground/80 pt-2"
             >
               {["React", "Node.js", "TypeScript", "Python", "MongoDB", "Computer Vision"].map((tech, i) => (
                 <motion.span
@@ -227,7 +226,11 @@ const HeroSection = () => {
             className="mt-8 flex flex-col items-center gap-4"
           >
             <div className="flex flex-col sm:flex-row items-center gap-4">
-              <Button size="lg" className="group h-12 px-8 text-base font-semibold rounded-xl bg-primary hover:bg-primary/90 shadow-[0_0_30px_hsl(var(--primary)/0.3)] hover:shadow-[0_0_40px_hsl(var(--primary)/0.5)] transition-all duration-300">
+              <Button 
+                size="lg" 
+                className="group h-12 px-8 text-base font-semibold rounded-xl bg-primary hover:bg-primary/90 shadow-[0_0_30px_hsl(var(--primary)/0.3)] hover:shadow-[0_0_40px_hsl(var(--primary)/0.5)] transition-all duration-300"
+                onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
+              >
                 <span>View Projects</span>
                 <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
               </Button>
@@ -244,9 +247,9 @@ const HeroSection = () => {
               className="flex items-center gap-3 mt-2"
             >
               {[
-                { icon: Linkedin, href: "https://linkedin.com/in/sabbir-ahmad", hoverColor: "hover:text-[#0A66C2] hover:border-[#0A66C2]/50 hover:bg-[#0A66C2]/10" },
-                { icon: Github, href: "https://github.com/sabbir-ahmad", hoverColor: "hover:text-foreground hover:border-foreground/50 hover:bg-foreground/10" },
-                { icon: Mail, href: "mailto:sabbir@example.com", hoverColor: "hover:text-primary hover:border-primary/50 hover:bg-primary/10" }
+                { icon: Linkedin, href: "https://www.linkedin.com/in/sabbirahmad653/", hoverColor: "hover:text-[#0A66C2] hover:border-[#0A66C2]/50 hover:bg-[#0A66C2]/10" },
+                { icon: Github, href: "https://github.com/Sabbirbracu", hoverColor: "hover:text-foreground hover:border-foreground/50 hover:bg-foreground/10" },
+                { icon: Mail, href: "mailto:sabbirahmad653@gmail.com", hoverColor: "hover:text-primary hover:border-primary/50 hover:bg-primary/10" }
               ].map(({ icon: Icon, href, hoverColor }, index) => (
                 <a
                   key={index}
