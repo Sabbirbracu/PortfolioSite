@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import { Briefcase, Lightbulb, ArrowRight } from "lucide-react";
+import { ArrowRight, Briefcase, Lightbulb } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const experiences = [
   {
@@ -133,10 +134,13 @@ const ExperienceSection = () => {
                 </div>
 
                 {/* Action */}
-                <button className="inline-flex items-center gap-1.5 text-sm text-primary hover:text-primary/80 transition-colors group">
+                <Link 
+                  to="/not-found"
+                  className="inline-flex items-center gap-1.5 text-sm text-primary hover:text-primary/80 transition-colors group"
+                >
                   <span>View Details</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </button>
+                </Link>
               </div>
             </motion.div>
           ))}
