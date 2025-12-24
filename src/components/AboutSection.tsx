@@ -1,210 +1,214 @@
-import { motion } from "framer-motion";
-import { GraduationCap, Globe, Mail, Code, Terminal, Cpu, Braces, Database, Cloud } from "lucide-react";
+import { motion, useMotionValue, useTransform } from "framer-motion";
+import { GraduationCap, Globe, Mail, Code, Terminal, Cpu, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import sabbirProfile from "@/assets/sabbir-profile.png";
+import { useRef } from "react";
 
 const AboutSection = () => {
-  const techIcons = [
-    { icon: Braces, label: "React" },
-    { icon: Database, label: "MongoDB" },
-    { icon: Terminal, label: "Node.js" },
-    { icon: Cloud, label: "Cloud" },
-  ];
+  const containerRef = useRef<HTMLDivElement>(null);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const rotateX = useTransform(mouseY, [-300, 300], [5, -5]);
+  const rotateY = useTransform(mouseX, [-300, 300], [-5, 5]);
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const rect = containerRef.current?.getBoundingClientRect();
+    if (rect) {
+      mouseX.set(e.clientX - rect.left - rect.width / 2);
+      mouseY.set(e.clientY - rect.top - rect.height / 2);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    mouseX.set(0);
+    mouseY.set(0);
+  };
 
   return (
-    <section id="about" className="py-28 relative overflow-hidden">
-      {/* Animated Background */}
+    <section id="about" className="py-32 relative overflow-hidden">
+      {/* Premium Background */}
       <div className="absolute inset-0">
-        {/* Gradient Mesh */}
-        <div className="absolute inset-0 opacity-30" style={{
-          background: `radial-gradient(ellipse 80% 50% at 50% -20%, hsl(var(--primary) / 0.3), transparent),
-                       radial-gradient(ellipse 60% 40% at 100% 50%, hsl(var(--primary) / 0.1), transparent),
-                       radial-gradient(ellipse 60% 40% at 0% 80%, hsl(180 70% 50% / 0.1), transparent)`
-        }} />
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-background" />
+        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px]" />
+        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-cyan-500/5 rounded-full blur-[100px]" />
         
-        {/* Animated Grid Lines */}
-        <div className="absolute inset-0 opacity-[0.03]" style={{
-          backgroundImage: `linear-gradient(hsl(var(--primary)) 1px, transparent 1px),
-                           linear-gradient(90deg, hsl(var(--primary)) 1px, transparent 1px)`,
-          backgroundSize: '80px 80px'
+        {/* Subtle Grid */}
+        <div className="absolute inset-0 opacity-[0.02]" style={{
+          backgroundImage: `linear-gradient(hsl(var(--foreground)) 1px, transparent 1px),
+                           linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)`,
+          backgroundSize: '100px 100px'
         }} />
       </div>
 
       <div className="section-container relative z-10">
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-20"
-        >
+        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+          
+          {/* Image Side - Left */}
           <motion.div
-            initial={{ scale: 0 }}
-            whileInView={{ scale: 1 }}
-            viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/20 bg-primary/5 mb-6"
-          >
-            <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-            <span className="text-primary font-mono text-sm tracking-wider uppercase">About Me</span>
-          </motion.div>
-          <h2 className="text-4xl md:text-6xl font-bold font-heading">
-            Full Stack <span className="text-gradient">Software Engineer</span>
-          </h2>
-        </motion.div>
-
-        <div className="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-          {/* Image Column - 5 cols */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            ref={containerRef}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="lg:col-span-5 relative"
+            className="relative order-2 lg:order-1"
+            style={{ perspective: 1000 }}
           >
-            {/* Main Image Container */}
-            <div className="relative mx-auto max-w-md">
-              {/* Outer Glow Ring */}
-              <div className="absolute -inset-4 rounded-3xl bg-gradient-to-br from-primary/20 via-transparent to-cyan-500/20 blur-2xl opacity-60" />
-              
-              {/* Hexagonal Frame Effect */}
-              <div className="relative">
-                {/* Rotating Border */}
-                <motion.div
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                  className="absolute -inset-3 rounded-3xl opacity-50"
-                  style={{
-                    background: `conic-gradient(from 0deg, hsl(var(--primary)), transparent, hsl(180 70% 50%), transparent, hsl(var(--primary)))`
-                  }}
-                />
+            <motion.div
+              style={{ rotateX, rotateY }}
+              transition={{ type: "spring", stiffness: 100, damping: 30 }}
+              className="relative"
+            >
+              {/* Main Card */}
+              <div className="relative max-w-lg mx-auto">
+                {/* Ambient Glow */}
+                <div className="absolute -inset-8 bg-gradient-to-br from-primary/30 via-primary/5 to-cyan-500/20 rounded-[40px] blur-3xl opacity-40" />
                 
-                {/* Image Wrapper */}
-                <div className="relative rounded-3xl overflow-hidden bg-background p-1">
-                  <div className="rounded-2xl overflow-hidden">
-                    <img
-                      src={sabbirProfile}
-                      alt="Sabbir Ahmad - Full Stack Developer"
-                      className="w-full aspect-[4/5] object-cover object-top"
-                    />
+                {/* Card Frame */}
+                <div className="relative rounded-[32px] p-[2px] bg-gradient-to-br from-primary/50 via-border/20 to-cyan-500/30">
+                  <div className="rounded-[30px] bg-background/95 backdrop-blur-xl overflow-hidden">
                     
-                    {/* Overlay Effects */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-40" />
-                    
-                    {/* Scan Line Animation */}
-                    <motion.div
-                      animate={{ y: ['-100%', '200%'] }}
-                      transition={{ duration: 3, repeat: Infinity, repeatDelay: 2 }}
-                      className="absolute inset-x-0 h-20 bg-gradient-to-b from-transparent via-primary/10 to-transparent pointer-events-none"
-                    />
+                    {/* Image */}
+                    <div className="relative">
+                      <img
+                        src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=700&fit=crop&crop=face"
+                        alt="Sabbir Ahmad - Full Stack Developer"
+                        className="w-full aspect-[4/5] object-cover"
+                      />
+                      
+                      {/* Gradient Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
+                      
+                      {/* Name Overlay */}
+                      <div className="absolute bottom-0 left-0 right-0 p-8">
+                        <motion.div
+                          initial={{ opacity: 0, y: 20 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: 0.4 }}
+                        >
+                          <span className="inline-block px-3 py-1 rounded-full text-xs font-mono text-primary bg-primary/10 border border-primary/20 mb-3">
+                            Software Engineer
+                          </span>
+                          <h3 className="text-3xl font-bold font-heading text-foreground">
+                            Sabbir Ahmad
+                          </h3>
+                        </motion.div>
+                      </div>
+                    </div>
+
+                    {/* Stats Bar */}
+                    <div className="grid grid-cols-3 divide-x divide-border/30 border-t border-border/30">
+                      {[
+                        { value: "17+", label: "Projects" },
+                        { value: "3+", label: "Years" },
+                        { value: "8+", label: "Stacks" },
+                      ].map((stat, index) => (
+                        <motion.div
+                          key={stat.label}
+                          initial={{ opacity: 0, y: 20 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: 0.5 + index * 0.1 }}
+                          className="p-5 text-center group hover:bg-primary/5 transition-colors"
+                        >
+                          <div className="text-2xl font-bold text-gradient">{stat.value}</div>
+                          <div className="text-xs text-muted-foreground font-mono uppercase tracking-wider mt-1">{stat.label}</div>
+                        </motion.div>
+                      ))}
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              {/* Floating Tech Icons */}
-              {techIcons.map((tech, index) => (
+                {/* Floating Elements */}
                 <motion.div
-                  key={tech.label}
-                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{ y: [0, -10, 0] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                  className="absolute -top-6 -right-6 w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-primary/50 flex items-center justify-center shadow-xl shadow-primary/30"
+                >
+                  <Code className="w-7 h-7 text-primary-foreground" />
+                </motion.div>
+
+                <motion.div
+                  animate={{ y: [0, 10, 0] }}
+                  transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+                  className="absolute -bottom-4 -left-4 w-14 h-14 rounded-xl bg-gradient-to-br from-cyan-500 to-cyan-600 flex items-center justify-center shadow-xl shadow-cyan-500/30"
+                >
+                  <Terminal className="w-6 h-6 text-white" />
+                </motion.div>
+
+                {/* Status Indicator */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
-                  transition={{ delay: 0.5 + index * 0.1 }}
-                  animate={{ y: [0, -8, 0] }}
-                  style={{ animationDelay: `${index * 0.2}s` }}
-                  className={`absolute ${
-                    index === 0 ? '-top-4 -left-4' :
-                    index === 1 ? '-top-4 -right-4' :
-                    index === 2 ? '-bottom-4 -left-4' :
-                    '-bottom-4 -right-4'
-                  }`}
+                  transition={{ delay: 0.8 }}
+                  className="absolute top-6 -left-4 z-10"
                 >
-                  <div className="w-12 h-12 rounded-xl bg-background border border-primary/30 flex items-center justify-center shadow-lg shadow-primary/10 backdrop-blur-sm">
-                    <tech.icon className="w-5 h-5 text-primary" />
+                  <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-background border border-border/50 shadow-xl backdrop-blur-xl">
+                    <span className="relative flex h-2.5 w-2.5">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+                      <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500" />
+                    </span>
+                    <span className="text-xs font-medium text-foreground/80">Open to work</span>
                   </div>
                 </motion.div>
-              ))}
-
-              {/* Status Badge */}
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.8 }}
-                className="absolute -right-8 top-1/2 -translate-y-1/2 hidden lg:block"
-              >
-                <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-background/80 border border-primary/20 backdrop-blur-xl shadow-xl">
-                  <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                  <span className="text-xs font-mono text-foreground/80">Available</span>
-                </div>
-              </motion.div>
-            </div>
+              </div>
+            </motion.div>
           </motion.div>
 
-          {/* Content Column - 7 cols */}
+          {/* Content Side - Right */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-            className="lg:col-span-7 space-y-8"
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="order-1 lg:order-2 space-y-8"
           >
-            {/* Stats Row */}
-            <div className="grid grid-cols-3 gap-4">
-              {[
-                { value: "17+", label: "Projects", icon: Code },
-                { value: "3+", label: "Years Exp", icon: Terminal },
-                { value: "8+", label: "Tech Stacks", icon: Cpu },
-              ].map((stat, index) => (
-                <motion.div
-                  key={stat.label}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.4 + index * 0.1 }}
-                  whileHover={{ y: -4 }}
-                  className="relative group"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-cyan-500/10 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
-                  <div className="relative p-5 rounded-2xl bg-background/50 border border-border/50 backdrop-blur-sm hover:border-primary/30 transition-all">
-                    <stat.icon className="w-5 h-5 text-primary mb-3" />
-                    <div className="text-3xl font-bold text-gradient mb-1">{stat.value}</div>
-                    <div className="text-xs text-muted-foreground font-mono uppercase tracking-wider">{stat.label}</div>
-                  </div>
-                </motion.div>
-              ))}
+            {/* Header */}
+            <div>
+              <motion.span
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                className="inline-flex items-center gap-2 text-primary font-mono text-sm tracking-wider uppercase mb-4"
+              >
+                <span className="w-8 h-px bg-primary" />
+                About Me
+              </motion.span>
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold font-heading leading-tight">
+                Full Stack
+                <br />
+                <span className="text-gradient">Software Engineer</span>
+              </h2>
             </div>
 
             {/* Bio */}
-            <div className="space-y-4 text-muted-foreground leading-relaxed">
+            <div className="space-y-5 text-muted-foreground text-lg leading-relaxed">
               <p>
-                I'm <span className="text-foreground font-semibold">Sabbir Ahmad</span>, a Full Stack Software Engineer currently in my final semester of Computer Science and Engineering at BRAC University. I specialize in building scalable, production-grade web applications designed to perform reliably in real-world environments.
+                I'm <span className="text-foreground font-semibold">Sabbir Ahmad</span>, a Full Stack Software Engineer in my final semester of Computer Science and Engineering at BRAC University.
               </p>
               
               <p>
-                Over the last few years, I've worked across <span className="text-primary font-mono font-bold">17+</span> live projects for startups and international clients, contributing end-to-end—from system architecture and API development to frontend performance optimization and cloud deployment.
+                I've delivered <span className="text-primary font-mono font-bold">17+</span> production-grade projects for startups and international clients—handling everything from system architecture to cloud deployment.
               </p>
               
               <p>
-                Alongside full stack engineering, I'm actively exploring <span className="text-foreground font-medium">AI/ML and Computer Vision</span> to integrate intelligent features into modern web products. I value clean architecture, maintainable codebases, and engineering decisions that scale beyond the MVP stage.
+                Currently exploring <span className="text-foreground font-medium">AI/ML and Computer Vision</span> to build intelligent, scalable web products.
               </p>
             </div>
 
-            {/* Info Tags */}
+            {/* Tags */}
             <div className="flex flex-wrap gap-3">
-              <motion.div
-                whileHover={{ scale: 1.02 }}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/5 border border-primary/20 text-sm"
-              >
+              <div className="group flex items-center gap-2 px-5 py-3 rounded-full bg-background border border-border/50 hover:border-primary/30 transition-all cursor-default">
                 <GraduationCap className="w-4 h-4 text-primary" />
-                <span className="text-foreground/80">Final-Year CSE @ BRAC University</span>
-              </motion.div>
-              <motion.div
-                whileHover={{ scale: 1.02 }}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-500/5 border border-cyan-500/20 text-sm"
-              >
+                <span className="text-sm text-foreground/80">BRAC University — CSE</span>
+              </div>
+              <div className="group flex items-center gap-2 px-5 py-3 rounded-full bg-background border border-border/50 hover:border-cyan-500/30 transition-all cursor-default">
                 <Globe className="w-4 h-4 text-cyan-400" />
-                <span className="text-foreground/80">Open to Remote & Onsite</span>
-              </motion.div>
+                <span className="text-sm text-foreground/80">Remote & Onsite Ready</span>
+              </div>
             </div>
 
             {/* CTA */}
@@ -213,22 +217,16 @@ const AboutSection = () => {
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.6 }}
+              className="pt-4"
             >
               <Button
                 size="lg"
-                className="group relative overflow-hidden bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary text-primary-foreground font-semibold px-8 rounded-full shadow-lg shadow-primary/25"
+                className="group relative h-14 px-8 rounded-full bg-foreground text-background hover:bg-foreground/90 font-semibold text-base"
                 onClick={() => document.getElementById('cta')?.scrollIntoView({ behavior: 'smooth' })}
               >
-                <span className="relative z-10 flex items-center gap-2">
-                  <Mail className="w-4 h-4" />
-                  Get in Touch
-                </span>
-                <motion.span
-                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
-                  initial={{ x: '-100%' }}
-                  whileHover={{ x: '100%' }}
-                  transition={{ duration: 0.5 }}
-                />
+                <Mail className="w-5 h-5 mr-2" />
+                Get in Touch
+                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
             </motion.div>
           </motion.div>
