@@ -133,3 +133,14 @@
     @apply text-primary;
   }
 }
+
+@layer utilities {
+  @keyframes blink {
+    0%, 50% {
+      opacity: 1;
+    }
+    51%, 100% {
+      opacity: 0;
+    }
+  }
+}

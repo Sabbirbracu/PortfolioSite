@@ -163,7 +163,7 @@ const AboutSection = () => {
                 {/* Blinking Cursor */}
                 <div className="flex items-center gap-1 pt-2">
                   <span className="text-primary font-mono">{'>'}</span>
-                  <span className="w-2 h-5 bg-primary animate-pulse" />
+                  <span className="w-2.5 h-5 bg-primary/90 animate-[blink_1s_step-end_infinite]" style={{ animation: 'blink 1s step-end infinite' }} />
                 </div>
               </div>
             </div>
