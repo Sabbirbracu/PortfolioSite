@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Download, Briefcase } from "lucide-react";
+import { ArrowRight, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import AnimatedGrid from "./AnimatedGrid";
 
@@ -35,10 +35,18 @@ const HeroSection = () => {
 
             {/* Main Title */}
             <div className="space-y-4">
-              <motion.h1
+              <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4, duration: 0.6 }}
+                className="text-xl md:text-2xl text-muted-foreground font-medium"
+              >
+                Hi, I'm
+              </motion.p>
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.45, duration: 0.6 }}
                 className="text-5xl md:text-6xl lg:text-7xl font-bold font-heading tracking-tight"
               >
                 <span className="text-foreground">Sabbir Ahmad</span>
@@ -99,10 +107,6 @@ const HeroSection = () => {
               <Button size="lg" variant="outline" className="group">
                 <Download className="mr-2 w-4 h-4" />
                 Download Resume
-              </Button>
-              <Button size="lg" variant="ghost" className="group">
-                <Briefcase className="mr-2 w-4 h-4" />
-                Hire Me
               </Button>
             </motion.div>
           </motion.div>
