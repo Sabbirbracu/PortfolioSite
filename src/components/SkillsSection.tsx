@@ -11,7 +11,7 @@ const skillCategories = [
   {
     icon: Server,
     title: "Backend",
-    skills: ["Node.js", "Express.js", "REST APIs", "GraphQL", "WebSockets"],
+    skills: ["Node.js", "Express.js", "REST APIs", "Django", "Laravel", "WebSockets"],
     color: "text-green-400",
   },
   {
@@ -35,7 +35,7 @@ const skillCategories = [
   {
     icon: Brain,
     title: "AI/ML (Exploratory)",
-    skills: ["Computer Vision", "CNNs", "TensorFlow", "Python", "OpenCV"],
+    skills: ["Computer Vision", "CNNs", "TensorFlow", "PyTorch", "Python", "OpenCV"],
     color: "text-primary",
   },
 ];
