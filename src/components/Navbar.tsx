@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { AnimatePresence, motion } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Download, Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 
 const navLinks = [
@@ -55,7 +55,12 @@ const Navbar = () => {
 
         {/* Desktop CTA */}
         <div className="hidden md:block">
-          <Button size="sm">Hire Me</Button>
+          <Button size="sm" asChild>
+            <a href="/resume.pdf" download>
+              <Download className="w-4 h-4 mr-2" />
+              Get Resume
+            </a>
+          </Button>
         </div>
 
         {/* Mobile Menu Toggle */}
@@ -88,7 +93,12 @@ const Navbar = () => {
                   {link.label}
                 </a>
               ))}
-              <Button className="w-full mt-4">Hire Me</Button>
+              <Button className="w-full mt-4" asChild>
+                <a href="/resume.pdf" download>
+                  <Download className="w-4 h-4 mr-2" />
+                  Get Resume
+                </a>
+              </Button>
             </div>
           </motion.div>
         )}
