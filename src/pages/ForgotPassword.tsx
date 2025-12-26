@@ -7,26 +7,35 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
+import { useForgotPasswordMutation } from "@/store/api/apiSlice";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { toast } = useToast();
 
+  const [forgotPassword, { isLoading }] = useForgotPasswordMutation();
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
 
-    // TODO: Connect to your Express API with RTK Query
-    setTimeout(() => {
-      setIsLoading(false);
-      setIsSubmitted(true);
+    try {
+      const result = await forgotPassword({ email }).unwrap();
+      
+      if (result.success) {
+        setIsSubmitted(true);
+        toast({
+          title: "Reset link sent",
+          description: "Check your email for the password reset link",
+        });
+      }
+    } catch (error: any) {
       toast({
-        title: "Reset link sent",
-        description: "Check your email for the password reset link",
+        title: "Request Failed",
+        description: error?.data?.message || "Unable to send reset email. Please try again.",
+        variant: "destructive",
       });
-    }, 1000);
+    }
   };
 
   return (
