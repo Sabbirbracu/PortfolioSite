@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Code2, Server, Database, Cloud, Shield, Brain } from "lucide-react";
+import { Code2, Server, Database, Cloud, Shield, Brain, ShoppingCart } from "lucide-react";
 
 const skillCategories = [
   {
@@ -37,6 +37,12 @@ const skillCategories = [
     title: "AI/ML (Exploratory)",
     skills: ["Computer Vision", "CNNs", "TensorFlow", "PyTorch", "Python", "OpenCV"],
     color: "text-primary",
+  },
+  {
+    icon: ShoppingCart,
+    title: "Platforms & Automation",
+    skills: ["WordPress", "WooCommerce", "Shopify", "Kajabi", "Go High Level", "Klaviyo", "Email Deliverability"],
+    color: "text-orange-400",
   },
 ];
 
