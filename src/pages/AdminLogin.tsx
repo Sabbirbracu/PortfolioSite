@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Eye, EyeOff, Lock, Mail, ArrowLeft } from "lucide-react";
@@ -7,29 +7,49 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
+import { useLoginMutation } from "@/store/api/apiSlice";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { setCredentials } from "@/store/slices/authSlice";
 
 const AdminLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
+  const dispatch = useAppDispatch();
+  const { isAuthenticated } = useAppSelector((state) => state.auth);
+
+  const [login, { isLoading }] = useLoginMutation();
+
+  // Redirect if already authenticated
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/admin/dashboard");
+    }
+  }, [isAuthenticated, navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
 
-    // TODO: Connect to your Express API with RTK Query
-    // For now, simulating API call
-    setTimeout(() => {
-      setIsLoading(false);
+    try {
+      const result = await login({ email, password }).unwrap();
+      
+      if (result.success) {
+        dispatch(setCredentials({ user: result.user, token: result.token }));
+        toast({
+          title: "Login Successful",
+          description: `Welcome back, ${result.user.name}!`,
+        });
+        navigate("/admin/dashboard");
+      }
+    } catch (error: any) {
       toast({
-        title: "Login functionality",
-        description: "Connect this to your Express API endpoint",
+        title: "Login Failed",
+        description: error?.data?.message || "Invalid credentials. Please try again.",
+        variant: "destructive",
       });
-      // navigate("/admin/dashboard");
-    }, 1000);
+    }
   };
 
   return (

@@ -229,6 +229,26 @@ const ProjectsSection = () => {
             </motion.div>
           ))}
         </div>
+
+        {/* View All Projects Button */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.4, duration: 0.5 }}
+          className="text-center mt-12"
+        >
+          <Link to="/projects">
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="inline-flex items-center gap-3 px-8 py-4 rounded-xl bg-primary/10 text-primary border border-primary/30 hover:bg-primary/20 hover:border-primary/50 transition-all font-medium"
+            >
+              <span>View All Projects</span>
+              <ArrowUpRight className="w-5 h-5" />
+            </motion.button>
+          </Link>
+        </motion.div>
       </div>
     </section>
   );

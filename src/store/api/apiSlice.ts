@@ -1,22 +1,81 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
+// API Base URL - change this to your production URL when deploying
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000/api";
+
+// Define types for auth
+export interface LoginCredentials {
+  email: string;
+  password: string;
+}
+
+export interface AuthResponse {
+  success: boolean;
+  message: string;
+  token: string;
+  user: {
+    id: string;
+    email: string;
+    name: string;
+    role: string;
+  };
+}
+
+export interface ForgotPasswordRequest {
+  email: string;
+}
+
+export interface ResetPasswordRequest {
+  token: string;
+  password: string;
+}
+
+// Helper to get token from localStorage
+const getToken = () => localStorage.getItem("adminToken");
+
 // Define the base API slice with RTK Query
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: import.meta.env.VITE_API_BASE_URL || "/api",
+    baseUrl: API_BASE_URL,
     prepareHeaders: (headers) => {
-      // You can add auth tokens or other headers here
-      // const token = localStorage.getItem('token');
-      // if (token) {
-      //   headers.set('authorization', `Bearer ${token}`);
-      // }
+      const token = getToken();
+      if (token) {
+        headers.set("authorization", `Bearer ${token}`);
+      }
       return headers;
     },
   }),
-  tagTypes: ["Portfolio", "Projects", "Contact"],
+  tagTypes: ["Portfolio", "Projects", "Contact", "Auth", "Articles", "Experiences", "Skills", "Appointments"],
   endpoints: (builder) => ({
-    // Example endpoints - customize based on your needs
+    // Auth endpoints
+    login: builder.mutation<AuthResponse, LoginCredentials>({
+      query: (credentials) => ({
+        url: "/auth/login",
+        method: "POST",
+        body: credentials,
+      }),
+    }),
+    forgotPassword: builder.mutation<{ success: boolean; message: string }, ForgotPasswordRequest>({
+      query: (data) => ({
+        url: "/auth/forgot-password",
+        method: "POST",
+        body: data,
+      }),
+    }),
+    resetPassword: builder.mutation<{ success: boolean; message: string }, ResetPasswordRequest>({
+      query: (data) => ({
+        url: "/auth/reset-password",
+        method: "POST",
+        body: data,
+      }),
+    }),
+    verifyToken: builder.query<{ valid: boolean; user: AuthResponse["user"] }, void>({
+      query: () => "/auth/verify",
+      providesTags: ["Auth"],
+    }),
+
+    // Portfolio endpoints
     getPortfolioData: builder.query({
       query: () => "/portfolio",
       providesTags: ["Portfolio"],
@@ -37,6 +96,10 @@ export const apiSlice = createApi({
 
 // Export hooks for usage in components
 export const {
+  useLoginMutation,
+  useForgotPasswordMutation,
+  useResetPasswordMutation,
+  useVerifyTokenQuery,
   useGetPortfolioDataQuery,
   useGetProjectsQuery,
   useSubmitContactMutation,
