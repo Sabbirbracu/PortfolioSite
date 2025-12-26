@@ -1,4 +1,5 @@
 import { Github, Linkedin, Mail } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -54,6 +55,12 @@ const Footer = () => {
             <p className="text-sm text-muted-foreground">
               © {currentYear} Sabbir Ahmad. All rights reserved.
             </p>
+            <Link
+              to="/admin/login"
+              className="text-xs text-muted-foreground/50 hover:text-muted-foreground transition-colors"
+            >
+              Admin
+            </Link>
           </div>
         </div>
       </div>
