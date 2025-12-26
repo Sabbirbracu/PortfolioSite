@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { ArrowRight, Github, Linkedin, Mail, Terminal, Zap } from "lucide-react";
 import { useEffect, useState } from "react";
+import ContactModal from "./ContactModal";
 
 const roles = [
   "Full Stack Software Engineer",
@@ -22,6 +23,7 @@ const HeroSection = () => {
   const [currentRole, setCurrentRole] = useState(0);
   const [displayText, setDisplayText] = useState("");
   const [isTyping, setIsTyping] = useState(true);
+  const [contactModalOpen, setContactModalOpen] = useState(false);
 
   useEffect(() => {
     const role = roles[currentRole];
@@ -234,7 +236,12 @@ const HeroSection = () => {
                 <span>View Projects</span>
                 <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
               </Button>
-              <Button size="lg" variant="outline" className="h-12 px-8 text-base font-semibold rounded-xl border-2 border-foreground/20 hover:border-primary/50 hover:bg-primary/5 transition-all duration-300">
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="h-12 px-8 text-base font-semibold rounded-xl border-2 border-foreground/20 hover:border-primary/50 hover:bg-primary/5 transition-all duration-300"
+                onClick={() => setContactModalOpen(true)}
+              >
                 Work with me
               </Button>
             </div>
@@ -286,6 +293,8 @@ const HeroSection = () => {
           </div>
         </motion.div>
       </motion.div>
+      {/* Contact Modal */}
+      <ContactModal open={contactModalOpen} onOpenChange={setContactModalOpen} />
     </section>
   );
 };
