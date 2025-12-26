@@ -1,35 +1,7 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight, Calendar, Clock } from "lucide-react";
-
-const articles = [
-  {
-    title: "Building Scalable APIs with Node.js and Express",
-    description: "A comprehensive guide to designing and implementing production-ready REST APIs with best practices for error handling, validation, and performance optimization.",
-    image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&h=400&fit=crop",
-    date: "Dec 15, 2024",
-    readTime: "8 min read",
-    category: "Backend Development",
-    link: "#"
-  },
-  {
-    title: "Computer Vision in Real-World Applications",
-    description: "Exploring how AI-powered vision systems are transforming industries from healthcare to autonomous vehicles, with practical implementation examples.",
-    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=400&fit=crop",
-    date: "Nov 28, 2024",
-    readTime: "12 min read",
-    category: "AI/ML",
-    link: "#"
-  },
-  {
-    title: "Modern React Patterns for Enterprise Apps",
-    description: "Deep dive into advanced React patterns including compound components, render props, and custom hooks for building maintainable enterprise applications.",
-    image: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=600&h=400&fit=crop",
-    date: "Oct 10, 2024",
-    readTime: "10 min read",
-    category: "Frontend",
-    link: "#"
-  }
-];
+import { Link } from "react-router-dom";
+import { articles } from "@/data/articles";
 
 const KnowledgeSection = () => {
   return (
@@ -64,14 +36,14 @@ const KnowledgeSection = () => {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {articles.map((article, index) => (
             <motion.article
-              key={article.title}
+              key={article.id}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className="group relative"
             >
-              <a href={article.link} className="block">
+              <Link to={`/article/${article.id}`} className="block">
                 <div className="relative bg-card border border-border/50 rounded-2xl overflow-hidden transition-all duration-500 hover:border-primary/50 hover:shadow-[0_0_40px_rgba(var(--primary-rgb),0.15)]">
                   {/* Image Container */}
                   <div className="relative h-52 overflow-hidden">
@@ -130,7 +102,7 @@ const KnowledgeSection = () => {
                     </div>
                   </div>
                 </div>
-              </a>
+              </Link>
             </motion.article>
           ))}
         </div>

@@ -1,5 +1,6 @@
 import Index from "@/pages/Index";
 import NotFound from "@/pages/NotFound";
+import ArticlePage from "@/pages/ArticlePage";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 // Define all application routes
@@ -9,20 +10,10 @@ const router = createBrowserRouter([
     element: <Index />,
     errorElement: <NotFound />,
   },
-  // Add more routes here as needed
-  // Example:
-  // {
-  //   path: "/projects",
-  //   element: <Projects />,
-  // },
-  // {
-  //   path: "/about",
-  //   element: <About />,
-  // },
-  // {
-  //   path: "/contact",
-  //   element: <Contact />,
-  // },
+  {
+    path: "/article/:id",
+    element: <ArticlePage />,
+  },
   {
     path: "*",
     element: <NotFound />,
