@@ -12,12 +12,14 @@ export interface LoginCredentials {
 export interface AuthResponse {
   success: boolean;
   message: string;
-  token: string;
-  user: {
-    id: string;
-    email: string;
-    name: string;
-    role: string;
+  data: {
+    token: string;
+    admin: {
+      id: string;
+      email: string;
+      name: string;
+      lastLogin?: string;
+    };
   };
 }
 
@@ -51,7 +53,7 @@ export const apiSlice = createApi({
     // Auth endpoints
     login: builder.mutation<AuthResponse, LoginCredentials>({
       query: (credentials) => ({
-        url: "/auth/login",
+        url: "/admin/login",
         method: "POST",
         body: credentials,
       }),
@@ -70,7 +72,7 @@ export const apiSlice = createApi({
         body: data,
       }),
     }),
-    verifyToken: builder.query<{ valid: boolean; user: AuthResponse["user"] }, void>({
+    verifyToken: builder.query<{ valid: boolean; admin: AuthResponse["data"]["admin"] }, void>({
       query: () => "/auth/verify",
       providesTags: ["Auth"],
     }),

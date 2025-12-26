@@ -1,32 +1,35 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
-import {
-  LayoutDashboard,
-  FileText,
-  Briefcase,
-  Code2,
-  FolderOpen,
-  Calendar,
-  BarChart3,
-  Settings,
-  LogOut,
-  Menu,
-  X,
-  TrendingUp,
-  Users,
-  Eye,
-  Clock,
-} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import { useAppDispatch } from "@/store/hooks";
+import { logout } from "@/store/slices/authSlice";
+import { motion } from "framer-motion";
+import {
+  BarChart3,
+  Briefcase,
+  Calendar,
+  Clock,
+  Code2,
+  Eye,
+  FileText,
+  FolderOpen,
+  LayoutDashboard,
+  LogOut,
+  Menu,
+  Settings,
+  TrendingUp,
+  Users,
+  X,
+} from "lucide-react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 // Import dashboard sections
+import AppointmentsSection from "@/components/admin/AppointmentsSection";
 import ArticlesSection from "@/components/admin/ArticlesSection";
 import ExperiencesSection from "@/components/admin/ExperiencesSection";
-import SkillsSection from "@/components/admin/SkillsSection";
 import ProjectsSection from "@/components/admin/ProjectsSection";
-import AppointmentsSection from "@/components/admin/AppointmentsSection";
+import SkillsSection from "@/components/admin/SkillsSection";
 
 type TabType = "overview" | "articles" | "experiences" | "skills" | "projects" | "appointments" | "settings";
 
@@ -50,6 +53,13 @@ const stats = [
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState<TabType>("overview");
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/admin/login");
+  };
 
   const renderContent = () => {
     switch (activeTab) {
@@ -126,6 +136,7 @@ const Dashboard = () => {
           <div className="p-4 border-t border-border">
             <Button
               variant="ghost"
+              onClick={handleLogout}
               className={cn(
                 "w-full justify-start gap-3 text-muted-foreground hover:text-destructive",
                 !sidebarOpen && "justify-center"

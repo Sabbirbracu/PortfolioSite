@@ -1,15 +1,15 @@
-import { useState, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import { motion } from "framer-motion";
-import { Eye, EyeOff, Lock, Mail, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { useLoginMutation } from "@/store/api/apiSlice";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { setCredentials } from "@/store/slices/authSlice";
+import { motion } from "framer-motion";
+import { ArrowLeft, Eye, EyeOff, Lock, Mail } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 const AdminLogin = () => {
   const [email, setEmail] = useState("");
@@ -33,17 +33,21 @@ const AdminLogin = () => {
     e.preventDefault();
 
     try {
+      console.log("Attempting login with:", { email, password: "***" });
       const result = await login({ email, password }).unwrap();
+      console.log("Login response:", result);
       
       if (result.success) {
-        dispatch(setCredentials({ user: result.user, token: result.token }));
+        dispatch(setCredentials({ user: result.data.admin, token: result.data.token }));
         toast({
           title: "Login Successful",
-          description: `Welcome back, ${result.user.name}!`,
+          description: `Welcome back, ${result.data.admin.name}!`,
         });
         navigate("/admin/dashboard");
       }
     } catch (error: any) {
+      console.error("Login error:", error);
+      console.error("Full error object:", JSON.stringify(error, null, 2));
       toast({
         title: "Login Failed",
         description: error?.data?.message || "Invalid credentials. Please try again.",

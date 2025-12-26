@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { ArrowRight, Github, Linkedin, Mail, Terminal, Zap } from "lucide-react";
+import { ArrowRight, Github, Linkedin, Terminal, Zap } from "lucide-react";
 import { useEffect, useState } from "react";
 import ContactModal from "./ContactModal";
 
@@ -52,7 +52,7 @@ const HeroSection = () => {
   }, [displayText, isTyping, currentRole]);
 
   return (
-    <section className="relative h-screen flex items-center overflow-hidden">
+    <section className="relative min-h-screen flex items-center overflow-hidden">
       {/* Futuristic Background */}
       <div className="absolute inset-0 bg-background">
         {/* Radial gradient */}
@@ -115,19 +115,19 @@ const HeroSection = () => {
       ))}
 
       <div className="section-container relative z-10">
-        <div className="flex flex-col items-center justify-center h-screen py-12">
+        <div className="flex flex-col items-center justify-center min-h-screen py-20 md:py-12">
           
           {/* Top Badge */}
           <motion.div
             initial={{ opacity: 0, y: -30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="mb-6"
+            className="mb-4 md:mb-6"
           >
-            <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full border border-primary/30 bg-primary/5 backdrop-blur-sm">
-              <Zap className="w-4 h-4 text-primary" />
-              <span className="text-sm font-medium text-foreground">Open to Remote & Onsite Opportunities</span>
-              <span className="w-2 h-2 rounded-full bg-[hsl(142_76%_50%)] animate-pulse" />
+            <div className="inline-flex items-center gap-2 md:gap-3 px-3 md:px-5 py-2 md:py-2.5 rounded-full border border-primary/30 bg-primary/5 backdrop-blur-sm">
+              <Zap className="w-3 h-3 md:w-4 md:h-4 text-primary" />
+              <span className="text-xs md:text-sm font-medium text-foreground text-center">Open to Remote & Onsite Opportunities</span>
+              <span className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-[hsl(142_76%_50%)] animate-pulse" />
             </div>
           </motion.div>
 
@@ -136,7 +136,7 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.8 }}
-            className="text-center space-y-4 max-w-5xl"
+            className="text-center space-y-3 md:space-y-4 max-w-5xl px-4 md:px-0"
           >
             {/* Pre-title */}
             <motion.div
@@ -145,8 +145,8 @@ const HeroSection = () => {
               transition={{ delay: 0.3 }}
               className="inline-flex items-center gap-2 text-primary/80"
             >
-              <Terminal className="w-4 h-4" />
-              <span className="font-mono text-sm tracking-wider">Hello, I'm</span>
+              <Terminal className="w-3 h-3 md:w-4 md:h-4" />
+              <span className="font-mono text-xs md:text-sm tracking-wider">Hello, I'm</span>
             </motion.div>
 
             {/* Name - Single Line */}
@@ -155,12 +155,12 @@ const HeroSection = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4, duration: 0.6 }}
-                className="flex items-center justify-center gap-3 md:gap-4"
+                className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-3 md:gap-4"
               >
-                <span className="text-4xl md:text-5xl lg:text-6xl font-bold font-heading tracking-tighter text-foreground">
+                <span className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-heading tracking-tighter text-foreground">
                   SABBIR
                 </span>
-                <span className="text-4xl md:text-5xl lg:text-6xl font-bold font-heading tracking-tighter text-gradient">
+                <span className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-heading tracking-tighter text-gradient">
                   AHMAD
                 </span>
               </motion.div>
@@ -171,17 +171,17 @@ const HeroSection = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.6 }}
-              className="h-10 flex items-center justify-center"
+              className="h-8 md:h-10 flex items-center justify-center"
             >
-              <div className="flex items-center gap-2 px-5 py-2 bg-card/50 backdrop-blur-sm border border-border/50 rounded-lg">
-                <span className="text-primary font-mono">&gt;</span>
-                <span className="text-base md:text-lg font-mono text-foreground">
+              <div className="flex items-center gap-1.5 md:gap-2 px-3 md:px-5 py-1.5 md:py-2 bg-card/50 backdrop-blur-sm border border-border/50 rounded-lg">
+                <span className="text-primary font-mono text-sm md:text-base">&gt;</span>
+                <span className="text-sm md:text-lg font-mono text-foreground">
                   {displayText}
                 </span>
                 <motion.span
                   animate={{ opacity: [1, 0] }}
                   transition={{ duration: 0.5, repeat: Infinity }}
-                  className="w-0.5 h-5 bg-primary"
+                  className="w-0.5 h-4 md:h-5 bg-primary"
                 />
               </div>
             </motion.div>
@@ -191,7 +191,7 @@ const HeroSection = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.7, duration: 0.6 }}
-              className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed"
+              className="text-sm md:text-base lg:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed px-2 md:px-0"
             >
               Full Stack Software Engineer with hands-on experience delivering end-to-end web platforms in production environments.
               I focus on scalable system design and am actively expanding into AI/ML and Computer Vision to build intelligent, future-ready applications.
@@ -203,7 +203,7 @@ const HeroSection = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.75, duration: 0.6 }}
-              className="flex flex-wrap justify-center gap-4 text-s text-foreground/80 pt-2"
+              className="flex flex-wrap justify-center gap-2 md:gap-4 text-xs md:text-sm text-foreground/80 pt-2 px-2 md:px-0"
             >
               {["React", "Node.js", "TypeScript", "Python", "MongoDB", "Computer Vision"].map((tech, i) => (
                 <motion.span
@@ -211,10 +211,10 @@ const HeroSection = () => {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.75 + i * 0.05 }}
-                  className="flex items-center gap-2"
+                  className="flex items-center gap-1.5 md:gap-2"
                 >
-                  {i > 0 && <span className="w-1 h-1 rounded-full bg-primary/40" />}
-                  <span className="font-mono">{tech}</span>
+                  {i > 0 && <span className="w-1 h-1 rounded-full bg-primary/40 hidden sm:block" />}
+                  <span className="font-mono px-2 py-0.5 md:px-0 md:py-0 bg-card/50 md:bg-transparent rounded md:rounded-none">{tech}</span>
                 </motion.span>
               ))}
             </motion.div>
@@ -225,21 +225,21 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8, duration: 0.6 }}
-            className="mt-8 flex flex-col items-center gap-4"
+            className="mt-6 md:mt-8 flex flex-col items-center gap-3 md:gap-4 px-4 md:px-0"
           >
-            <div className="flex flex-col sm:flex-row items-center gap-4">
+            <div className="flex flex-col sm:flex-row items-center gap-3 md:gap-4 w-full sm:w-auto">
               <Button 
                 size="lg" 
-                className="group h-12 px-8 text-base font-semibold rounded-xl bg-primary hover:bg-primary/90 shadow-[0_0_30px_hsl(var(--primary)/0.3)] hover:shadow-[0_0_40px_hsl(var(--primary)/0.5)] transition-all duration-300"
+                className="group w-full sm:w-auto h-11 md:h-12 px-6 md:px-8 text-sm md:text-base font-semibold rounded-xl bg-primary hover:bg-primary/90 shadow-[0_0_30px_hsl(var(--primary)/0.3)] hover:shadow-[0_0_40px_hsl(var(--primary)/0.5)] transition-all duration-300"
                 onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
               >
                 <span>View Projects</span>
-                <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
+                <ArrowRight className="ml-2 w-4 h-4 md:w-5 md:h-5 transition-transform group-hover:translate-x-1" />
               </Button>
               <Button 
                 size="lg" 
                 variant="outline" 
-                className="h-12 px-8 text-base font-semibold rounded-xl border-2 border-foreground/20 hover:border-primary/50 hover:bg-primary/5 transition-all duration-300"
+                className="w-full sm:w-auto h-11 md:h-12 px-6 md:px-8 text-sm md:text-base font-semibold rounded-xl border-2 border-foreground/20 hover:border-primary/50 hover:bg-primary/5 transition-all duration-300"
                 onClick={() => setContactModalOpen(true)}
               >
                 Work with me
@@ -251,21 +251,21 @@ const HeroSection = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.9, duration: 0.6 }}
-              className="flex items-center gap-3 mt-2"
+              className="flex items-center gap-3 mt-1 md:mt-2"
             >
               {[
                 { icon: Linkedin, href: "https://www.linkedin.com/in/sabbirahmad653/", hoverColor: "hover:text-[#0A66C2] hover:border-[#0A66C2]/50 hover:bg-[#0A66C2]/10" },
                 { icon: Github, href: "https://github.com/Sabbirbracu", hoverColor: "hover:text-foreground hover:border-foreground/50 hover:bg-foreground/10" },
-                { icon: Mail, href: "mailto:sabbirahmad653@gmail.com", hoverColor: "hover:text-primary hover:border-primary/50 hover:bg-primary/10" }
+                // { icon: Mail, href: "mailto:sabbirahmad653@gmail.com", hoverColor: "hover:text-primary hover:border-primary/50 hover:bg-primary/10" }
               ].map(({ icon: Icon, href, hoverColor }, index) => (
                 <a
                   key={index}
                   href={href}
                   target={href.startsWith("http") ? "_blank" : undefined}
                   rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-                  className={`flex items-center justify-center w-11 h-11 rounded-full border border-border/50 bg-card/30 backdrop-blur-sm text-muted-foreground transition-all duration-300 ${hoverColor}`}
+                  className={`flex items-center justify-center w-10 h-10 md:w-11 md:h-11 rounded-full border border-border/50 bg-card/30 backdrop-blur-sm text-muted-foreground transition-all duration-300 ${hoverColor}`}
                 >
-                  <Icon className="w-5 h-5" />
+                  <Icon className="w-4 h-4 md:w-5 md:h-5" />
                 </a>
               ))}
             </motion.div>
@@ -278,7 +278,7 @@ const HeroSection = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.2, duration: 0.6 }}
-        className="absolute bottom-4 left-1/2 -translate-x-1/2"
+        className="absolute bottom-4 md:bottom-6 left-1/2 -translate-x-1/2 hidden sm:block"
       >
         <motion.div
           animate={{ y: [0, 8, 0] }}
