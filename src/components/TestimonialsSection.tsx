@@ -1,33 +1,88 @@
-import { motion } from "framer-motion";
-import { Play, Quote } from "lucide-react";
-import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronLeft, ChevronRight, Play, Quote } from "lucide-react";
+import { useEffect, useState } from "react";
 
-interface Testimonial {
+interface VideoTestimonial {
+  name: string;
+  role: string;
+  company: string;
+  videoUrl: string;
+  thumbnailUrl?: string;
+}
+
+interface TextTestimonial {
   id: number;
   name: string;
   role: string;
   company: string;
   quote: string;
-  videoUrl?: string; // Cloudinary video URL
-  thumbnailUrl?: string; // Optional thumbnail
+  avatar?: string;
 }
 
-// Sample testimonials - replace with your actual data
-const testimonials: Testimonial[] = [
+// Featured video testimonial - replace with your Cloudinary URL
+const videoTestimonial: VideoTestimonial = {
+  name: "Client Name",
+  role: "CEO",
+  company: "Tech Company",
+  videoUrl: "", // e.g., "https://res.cloudinary.com/your-cloud/video/upload/v123/testimonial.mp4"
+  thumbnailUrl: "",
+};
+
+// Text testimonials for the auto-slider
+const textTestimonials: TextTestimonial[] = [
   {
     id: 1,
-    name: "Client Name",
-    role: "CEO",
-    company: "Tech Company",
-    quote: "Sabbir delivered an exceptional web application that exceeded our expectations. His attention to detail and technical expertise made the project a huge success.",
-    // Replace with your Cloudinary video URL
-    videoUrl: "", // e.g., "https://res.cloudinary.com/your-cloud-name/video/upload/v1234567890/testimonial.mp4"
-    thumbnailUrl: "", // Optional: Cloudinary thumbnail or leave empty
+    name: "John Smith",
+    role: "CTO",
+    company: "StartupX",
+    quote: "Sabbir's technical expertise and problem-solving skills are exceptional. He delivered a complex web application on time and exceeded all our expectations.",
+  },
+  {
+    id: 2,
+    name: "Sarah Johnson",
+    role: "Product Manager",
+    company: "TechCorp",
+    quote: "Working with Sabbir was a pleasure. His attention to detail and commitment to quality made our project a huge success. Highly recommended!",
+  },
+  {
+    id: 3,
+    name: "Michael Chen",
+    role: "Founder",
+    company: "InnovateLab",
+    quote: "Sabbir transformed our vision into reality. His full-stack expertise and proactive communication made the development process smooth and efficient.",
+  },
+  {
+    id: 4,
+    name: "Emily Davis",
+    role: "Marketing Director",
+    company: "GrowthHub",
+    quote: "The website Sabbir built for us increased our conversions by 40%. His understanding of both design and functionality is truly impressive.",
   },
 ];
 
 const TestimonialsSection = () => {
-  const [activeVideo, setActiveVideo] = useState<string | null>(null);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+
+  // Auto-slide every 5 seconds
+  useEffect(() => {
+    if (isPaused) return;
+    
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % textTestimonials.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [isPaused]);
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % textTestimonials.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + textTestimonials.length) % textTestimonials.length);
+  };
 
   return (
     <section id="testimonials" className="py-20 px-4 md:px-6 lg:px-8 bg-muted/30">
@@ -51,90 +106,148 @@ const TestimonialsSection = () => {
           </p>
         </motion.div>
 
-        {/* Testimonials Grid */}
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-1">
-          {testimonials.map((testimonial, index) => (
-            <motion.div
-              key={testimonial.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-card rounded-2xl border border-border/50 overflow-hidden shadow-lg"
-            >
+        {/* Featured Video Testimonial */}
+        {videoTestimonial.videoUrl && (
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="mb-16"
+          >
+            <div className="bg-card rounded-2xl border border-border/50 overflow-hidden shadow-xl">
               <div className="grid lg:grid-cols-2 gap-0">
-                {/* Video Section */}
-                {testimonial.videoUrl && (
-                  <div className="relative aspect-video lg:aspect-auto bg-muted">
-                    {activeVideo === testimonial.videoUrl ? (
-                      <video
-                        src={testimonial.videoUrl}
-                        controls
-                        autoPlay
-                        className="w-full h-full object-cover"
-                      >
-                        Your browser does not support the video tag.
-                      </video>
-                    ) : (
-                      <div
-                        className="relative w-full h-full min-h-[280px] cursor-pointer group"
-                        onClick={() => setActiveVideo(testimonial.videoUrl!)}
-                      >
-                        {/* Thumbnail or gradient background */}
-                        {testimonial.thumbnailUrl ? (
-                          <img
-                            src={testimonial.thumbnailUrl}
-                            alt={`${testimonial.name} testimonial`}
-                            className="w-full h-full object-cover"
-                          />
-                        ) : (
-                          <div className="w-full h-full bg-gradient-to-br from-primary/20 to-primary/5" />
-                        )}
-                        
-                        {/* Play button overlay */}
-                        <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors">
-                          <div className="w-20 h-20 rounded-full bg-primary/90 group-hover:bg-primary flex items-center justify-center transition-all group-hover:scale-110 shadow-xl">
-                            <Play className="w-8 h-8 text-primary-foreground ml-1" />
-                          </div>
+                {/* Video */}
+                <div className="relative aspect-video bg-muted">
+                  {isVideoPlaying ? (
+                    <video
+                      src={videoTestimonial.videoUrl}
+                      controls
+                      autoPlay
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div
+                      className="relative w-full h-full cursor-pointer group"
+                      onClick={() => setIsVideoPlaying(true)}
+                    >
+                      {videoTestimonial.thumbnailUrl ? (
+                        <img
+                          src={videoTestimonial.thumbnailUrl}
+                          alt={`${videoTestimonial.name} testimonial`}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-gradient-to-br from-primary/20 to-primary/5" />
+                      )}
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors">
+                        <div className="w-20 h-20 rounded-full bg-primary/90 group-hover:bg-primary flex items-center justify-center transition-all group-hover:scale-110 shadow-xl">
+                          <Play className="w-8 h-8 text-primary-foreground ml-1" />
                         </div>
                       </div>
-                    )}
-                  </div>
-                )}
+                    </div>
+                  )}
+                </div>
 
-                {/* Quote Section */}
+                {/* Video Info */}
                 <div className="p-8 lg:p-10 flex flex-col justify-center">
-                  <Quote className="w-10 h-10 text-primary/30 mb-4" />
-                  <blockquote className="text-lg md:text-xl text-foreground/90 leading-relaxed mb-6">
-                    "{testimonial.quote}"
-                  </blockquote>
-                  <div className="mt-auto">
-                    <p className="font-semibold text-foreground">
-                      {testimonial.name}
-                    </p>
-                    <p className="text-sm text-muted-foreground">
-                      {testimonial.role} at {testimonial.company}
-                    </p>
+                  <div className="inline-flex items-center gap-2 text-primary text-sm font-medium mb-4">
+                    <Play className="w-4 h-4" />
+                    Featured Review
                   </div>
+                  <h3 className="text-2xl font-bold mb-2">{videoTestimonial.name}</h3>
+                  <p className="text-muted-foreground">
+                    {videoTestimonial.role} at {videoTestimonial.company}
+                  </p>
                 </div>
               </div>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* No video fallback - text-only testimonial card */}
-        {testimonials.every(t => !t.videoUrl) && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="text-center text-muted-foreground mt-8"
-          >
-            <p className="text-sm">
-              Video testimonials coming soon...
-            </p>
+            </div>
           </motion.div>
         )}
+
+        {/* Auto-sliding Text Testimonials */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="relative"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+        >
+          <div className="bg-card rounded-2xl border border-border/50 p-8 md:p-12 shadow-lg overflow-hidden">
+            <Quote className="w-12 h-12 text-primary/20 mb-6" />
+            
+            {/* Slider Content */}
+            <div className="relative min-h-[200px]">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentSlide}
+                  initial={{ opacity: 0, x: 50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -50 }}
+                  transition={{ duration: 0.4, ease: "easeInOut" }}
+                >
+                  <blockquote className="text-xl md:text-2xl text-foreground/90 leading-relaxed mb-8">
+                    "{textTestimonials[currentSlide].quote}"
+                  </blockquote>
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                      <span className="text-primary font-bold text-lg">
+                        {textTestimonials[currentSlide].name.charAt(0)}
+                      </span>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-foreground">
+                        {textTestimonials[currentSlide].name}
+                      </p>
+                      <p className="text-sm text-muted-foreground">
+                        {textTestimonials[currentSlide].role} at {textTestimonials[currentSlide].company}
+                      </p>
+                    </div>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            {/* Navigation */}
+            <div className="flex items-center justify-between mt-8 pt-6 border-t border-border/50">
+              {/* Dots */}
+              <div className="flex gap-2">
+                {textTestimonials.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentSlide(index)}
+                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                      index === currentSlide
+                        ? "bg-primary w-6"
+                        : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
+                    }`}
+                    aria-label={`Go to testimonial ${index + 1}`}
+                  />
+                ))}
+              </div>
+
+              {/* Arrows */}
+              <div className="flex gap-2">
+                <button
+                  onClick={prevSlide}
+                  className="w-10 h-10 rounded-full border border-border/50 flex items-center justify-center hover:bg-muted transition-colors"
+                  aria-label="Previous testimonial"
+                >
+                  <ChevronLeft className="w-5 h-5" />
+                </button>
+                <button
+                  onClick={nextSlide}
+                  className="w-10 h-10 rounded-full border border-border/50 flex items-center justify-center hover:bg-muted transition-colors"
+                  aria-label="Next testimonial"
+                >
+                  <ChevronRight className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
