@@ -38,7 +38,13 @@ const AdminLogin = () => {
       console.log("Login response:", result);
       
       if (result.success) {
-        dispatch(setCredentials({ user: result.data.admin, token: result.data.token }));
+        dispatch(setCredentials({ 
+          user: {
+            ...result.data.admin,
+            role: result.data.admin.role || 'admin',
+          }, 
+          token: result.data.token 
+        }));
         toast({
           title: "Login Successful",
           description: `Welcome back, ${result.data.admin.name}!`,
