@@ -100,142 +100,89 @@ const TestimonialsSection = () => {
           </p>
         </motion.div>
 
-        {/* Centered Video Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="max-w-4xl mx-auto mb-16"
-        >
-          {/* Glowing Border Effect */}
-          <div className="relative">
-            <div className="absolute -inset-[2px] bg-gradient-to-r from-primary via-accent to-primary rounded-3xl opacity-60 blur-sm" />
-            <div className="absolute -inset-[1px] bg-gradient-to-r from-primary/50 via-transparent to-accent/50 rounded-3xl" />
-            
-            <div className="relative glass-card rounded-3xl overflow-hidden">
-              {/* Top Bar */}
-              <div className="flex items-center gap-2 px-5 py-3 border-b border-border/30 bg-card/80">
-                <div className="flex gap-1.5">
-                  <div className="w-3 h-3 rounded-full bg-destructive/80" />
-                  <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
-                  <div className="w-3 h-3 rounded-full bg-green-500/80" />
-                </div>
-                <div className="flex-1 flex justify-center">
-                  <div className="flex items-center gap-2 px-4 py-1 rounded-full bg-muted/50 text-xs text-muted-foreground font-mono">
-                    <Play className="w-3 h-3 text-primary" />
-                    video_testimonial.mp4
+        {/* Side by Side Layout */}
+        <div className="grid lg:grid-cols-2 gap-8 items-stretch">
+          {/* Video Section */}
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="h-full"
+          >
+            <div className="relative h-full">
+              {/* Card Glow */}
+              <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 via-accent/15 to-primary/20 rounded-3xl blur-2xl opacity-50" />
+              
+              <div className="relative glass-card rounded-3xl overflow-hidden border-primary/10 h-full flex flex-col">
+                {/* Video Label */}
+                <div className="absolute top-4 left-4 z-10">
+                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-card/90 backdrop-blur-sm border border-primary/20">
+                    <Play className="w-4 h-4 text-primary" />
+                    <span className="text-sm font-medium text-foreground">Video Review</span>
                   </div>
                 </div>
-                <div className="px-3 py-1 rounded-full bg-primary/10 border border-primary/20">
-                  <span className="text-xs font-mono text-primary">LIVE</span>
+                
+                {/* Video */}
+                <div className="aspect-video flex-1">
+                  <iframe
+                    src={`https://www.youtube.com/embed/${youtubeVideoId}?rel=0&modestbranding=1`}
+                    title="Client Testimonial Video"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="w-full h-full"
+                  />
                 </div>
               </div>
-              
-              {/* Video */}
-              <div className="aspect-video">
-                <iframe
-                  src={`https://www.youtube.com/embed/${youtubeVideoId}?rel=0&modestbranding=1`}
-                  title="Client Testimonial Video"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  className="w-full h-full"
-                />
-              </div>
             </div>
-          </div>
-        </motion.div>
+          </motion.div>
 
-        {/* Text Testimonials Carousel */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, delay: 0.2 }}
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
-        >
-          {/* Navigation Controls */}
-          <div className="flex items-center justify-center gap-4 mb-8">
-            <button
-              onClick={prevSlide}
-              className="w-12 h-12 rounded-full bg-card/60 border border-border/30 flex items-center justify-center hover:bg-primary/20 hover:border-primary/30 transition-all duration-300 group backdrop-blur-sm"
-              aria-label="Previous testimonial"
-            >
-              <ChevronLeft className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
-            </button>
-            
-            {/* Progress Dots */}
-            <div className="flex gap-3">
-              {textTestimonials.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentSlide(index)}
-                  className="relative h-2 rounded-full overflow-hidden transition-all duration-300"
-                  style={{ width: index === currentSlide ? '40px' : '10px' }}
-                  aria-label={`Go to testimonial ${index + 1}`}
-                >
-                  <div className="absolute inset-0 bg-muted-foreground/20" />
-                  {index === currentSlide && (
-                    <motion.div
-                      className="absolute inset-0 bg-gradient-to-r from-primary to-accent"
-                      initial={{ scaleX: 0 }}
-                      animate={{ scaleX: 1 }}
-                      transition={{ duration: 5, ease: "linear" }}
-                      style={{ transformOrigin: 'left' }}
-                    />
-                  )}
-                </button>
-              ))}
-            </div>
-            
-            <button
-              onClick={nextSlide}
-              className="w-12 h-12 rounded-full bg-card/60 border border-border/30 flex items-center justify-center hover:bg-primary/20 hover:border-primary/30 transition-all duration-300 group backdrop-blur-sm"
-              aria-label="Next testimonial"
-            >
-              <ChevronRight className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
-            </button>
-          </div>
-
-          {/* Testimonial Cards */}
-          <div className="max-w-3xl mx-auto">
-            <div className="relative">
+          {/* Text Testimonials Section */}
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+            className="h-full"
+          >
+            <div className="relative h-full">
               {/* Card Glow */}
-              <div className="absolute -inset-6 bg-gradient-to-r from-primary/15 via-accent/10 to-primary/15 rounded-3xl blur-3xl opacity-50" />
+              <div className="absolute -inset-4 bg-gradient-to-r from-accent/20 via-primary/15 to-accent/20 rounded-3xl blur-2xl opacity-50" />
               
-              <div className="relative glass-card rounded-3xl p-10 md:p-12 text-center border-primary/10">
+              <div className="relative glass-card rounded-3xl p-8 md:p-10 border-primary/10 h-full flex flex-col">
                 {/* Quote Icon */}
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-14 h-14 rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-xl shadow-primary/30">
-                  <span className="text-3xl font-bold text-primary-foreground">"</span>
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-xl shadow-primary/30">
+                  <span className="text-2xl font-bold text-primary-foreground">"</span>
                 </div>
 
                 {/* Slider Content */}
-                <div className="relative min-h-[200px] pt-6">
+                <div className="flex-1 flex flex-col justify-center pt-4">
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={currentSlide}
-                      initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }}
+                      initial={{ opacity: 0, y: 20, filter: 'blur(8px)' }}
                       animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                      exit={{ opacity: 0, y: -30, filter: 'blur(10px)' }}
-                      transition={{ duration: 0.5, ease: "easeOut" }}
-                      className="flex flex-col items-center"
+                      exit={{ opacity: 0, y: -20, filter: 'blur(8px)' }}
+                      transition={{ duration: 0.4, ease: "easeOut" }}
+                      className="flex flex-col items-center text-center"
                     >
-                      <blockquote className="text-xl md:text-2xl text-foreground/90 leading-relaxed mb-10 font-light max-w-2xl">
+                      <blockquote className="text-lg md:text-xl text-foreground/90 leading-relaxed mb-8 font-light">
                         {textTestimonials[currentSlide].quote}
                       </blockquote>
                       
-                      <div className="flex flex-col items-center gap-4">
+                      <div className="flex items-center gap-4">
                         <div className="relative">
-                          <div className="absolute inset-0 bg-gradient-to-br from-primary to-accent rounded-full blur-lg opacity-50" />
-                          <div className="relative w-16 h-16 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center ring-4 ring-primary/20 ring-offset-4 ring-offset-card">
-                            <span className="text-primary-foreground font-bold text-2xl">
+                          <div className="absolute inset-0 bg-gradient-to-br from-primary to-accent rounded-full blur-md opacity-50" />
+                          <div className="relative w-14 h-14 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center ring-2 ring-primary/20 ring-offset-2 ring-offset-card">
+                            <span className="text-primary-foreground font-bold text-xl">
                               {textTestimonials[currentSlide].name.charAt(0)}
                             </span>
                           </div>
                         </div>
-                        <div className="text-center">
-                          <p className="font-bold text-foreground text-xl mb-1">
+                        <div className="text-left">
+                          <p className="font-bold text-foreground text-lg">
                             {textTestimonials[currentSlide].name}
                           </p>
                           <p className="text-primary font-mono text-sm">
@@ -247,10 +194,34 @@ const TestimonialsSection = () => {
                     </motion.div>
                   </AnimatePresence>
                 </div>
+
+                {/* Progress Dots */}
+                <div className="flex justify-center gap-2 mt-6 pt-6 border-t border-border/20">
+                  {textTestimonials.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentSlide(index)}
+                      className="relative h-2 rounded-full overflow-hidden transition-all duration-300"
+                      style={{ width: index === currentSlide ? '32px' : '8px' }}
+                      aria-label={`Go to testimonial ${index + 1}`}
+                    >
+                      <div className="absolute inset-0 bg-muted-foreground/20" />
+                      {index === currentSlide && (
+                        <motion.div
+                          className="absolute inset-0 bg-gradient-to-r from-primary to-accent"
+                          initial={{ scaleX: 0 }}
+                          animate={{ scaleX: 1 }}
+                          transition={{ duration: 5, ease: "linear" }}
+                          style={{ transformOrigin: 'left' }}
+                        />
+                      )}
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
-        </motion.div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
