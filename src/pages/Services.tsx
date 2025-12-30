@@ -13,7 +13,7 @@ import {
 } from "@/components/services";
 import { motion } from "framer-motion";
 import { Bot, Code, Globe, ShoppingCart, Wrench, Zap } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PopupModal } from "react-calendly";
 import { Helmet } from "react-helmet-async";
 
@@ -320,6 +320,13 @@ const services: ServiceData[] = [
 
 const Services = () => {
   const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
+
+  // Ensure page scrolls to top when navigating to Services
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, behavior: "auto" });
+    }
+  }, []);
 
   const openCalendly = () => setIsCalendlyOpen(true);
   const closeCalendly = () => setIsCalendlyOpen(false);

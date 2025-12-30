@@ -1,13 +1,15 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
-import { Mail, Calendar, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
+import { ArrowRight, Calendar, Mail } from "lucide-react";
+import { useState } from "react";
+import { PopupModal } from "react-calendly";
 import ContactModal from "./ContactModal";
-import AppointmentModal from "./AppointmentModal";
 
 const CTASection = () => {
   const [contactOpen, setContactOpen] = useState(false);
-  const [appointmentOpen, setAppointmentOpen] = useState(false);
+  const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
+
+  const CALENDLY_URL = "https://calendly.com/sabbirahmad653/30min";
 
   return (
     <>
@@ -57,7 +59,7 @@ const CTASection = () => {
                   size="lg" 
                   variant="outline" 
                   className="text-lg px-8"
-                  onClick={() => setAppointmentOpen(true)}
+                  onClick={() => setIsCalendlyOpen(true)}
                 >
                   <Calendar className="mr-2 w-5 h-5" />
                   Book an Appointment
@@ -70,7 +72,20 @@ const CTASection = () => {
 
       {/* Modals */}
       <ContactModal open={contactOpen} onOpenChange={setContactOpen} />
-      <AppointmentModal open={appointmentOpen} onOpenChange={setAppointmentOpen} />
+      <PopupModal
+        url={CALENDLY_URL}
+        onModalClose={() => setIsCalendlyOpen(false)}
+        open={isCalendlyOpen}
+        rootElement={document.getElementById("root") as HTMLElement}
+        prefill={{ name: "", email: "" }}
+        pageSettings={{
+          backgroundColor: "ffffff",
+          hideEventTypeDetails: false,
+          hideLandingPageDetails: false,
+          primaryColor: "8b5cf6",
+          textColor: "1a1a1a",
+        }}
+      />
     </>
   );
 };

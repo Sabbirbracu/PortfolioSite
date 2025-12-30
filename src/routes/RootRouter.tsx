@@ -1,9 +1,10 @@
+import Dashboard from "@/pages/admin/Dashboard";
+import AdminLogin from "@/pages/AdminLogin";
+import ArticlePage from "@/pages/ArticlePage";
+import ForgotPassword from "@/pages/ForgotPassword";
 import Index from "@/pages/Index";
 import NotFound from "@/pages/NotFound";
-import ArticlePage from "@/pages/ArticlePage";
-import AdminLogin from "@/pages/AdminLogin";
-import ForgotPassword from "@/pages/ForgotPassword";
-import Dashboard from "@/pages/admin/Dashboard";
+import ProjectDetails from "@/pages/ProjectDetails";
 import Projects from "@/pages/Projects";
 import Services from "@/pages/Services";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
   {
     path: "/projects",
     element: <Projects />,
+  },
+  {
+    path: "/projects/:slug",
+    element: <ProjectDetails />,
   },
   {
     path: "/article/:id",

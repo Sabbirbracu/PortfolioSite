@@ -1,7 +1,9 @@
-import { motion } from "framer-motion";
-import { ArrowLeft, ArrowUpRight, ExternalLink, Github, Layers, Zap, Code2, Globe, Bot, Cpu, BookOpen } from "lucide-react";
-import { Link } from "react-router-dom";
+import Navbar from "@/components/Navbar";
+import CategorySection from "@/components/projects/CategorySection";
 import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
+import { ArrowLeft, BookOpen, Bot, Code2, Cpu, Globe } from "lucide-react";
+import { Link } from "react-router-dom";
 
 // Helper to check if link is internal route
 const isInternalLink = (link: string) => link.startsWith("/");
@@ -188,131 +190,12 @@ const projectCategories: ProjectCategory[] = [
   },
 ];
 
-const ProjectCard = ({ project, index }: { project: Project; index: number }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 30 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    transition={{ delay: index * 0.1, duration: 0.5 }}
-    className="group relative"
-  >
-    {/* Animated Border Glow */}
-    <div className="absolute -inset-0.5 bg-gradient-to-r from-primary via-cyan-500 to-primary rounded-2xl opacity-0 group-hover:opacity-75 blur-sm transition-all duration-500 group-hover:duration-200" />
-    
-    {/* Card Container */}
-    <div className="relative rounded-2xl overflow-hidden bg-background/95 backdrop-blur-xl border border-border/50">
-      {/* Corner Accents */}
-      <div className="absolute top-0 left-0 w-8 h-8 border-l-2 border-t-2 border-primary/50 rounded-tl-2xl" />
-      <div className="absolute top-0 right-0 w-8 h-8 border-r-2 border-t-2 border-primary/50 rounded-tr-2xl" />
-      <div className="absolute bottom-0 left-0 w-8 h-8 border-l-2 border-b-2 border-primary/50 rounded-bl-2xl" />
-      <div className="absolute bottom-0 right-0 w-8 h-8 border-r-2 border-b-2 border-primary/50 rounded-br-2xl" />
-
-      {/* Banner Image */}
-      <div className="relative h-48 overflow-hidden">
-        <img
-          src={project.banner}
-          alt={project.title}
-          className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:brightness-110"
-        />
-        {/* Overlay Gradient */}
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent" />
-        
-        {/* Year Badge */}
-        <div className="absolute top-4 left-4">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-primary/20 text-primary border border-primary/30 backdrop-blur-md">
-            <Zap className="w-3 h-3" />
-            {project.year}
-          </span>
-        </div>
-
-        {/* Floating Action Buttons */}
-        <div className="absolute top-4 right-4 flex gap-2">
-          {isInternalLink(project.demoLink) ? (
-            <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
-              <Link
-                to={project.demoLink}
-                className="w-10 h-10 rounded-lg bg-background/80 backdrop-blur-md flex items-center justify-center text-foreground border border-border/50 hover:border-primary hover:text-primary transition-all shadow-lg"
-              >
-                <ExternalLink className="w-4 h-4" />
-              </Link>
-            </motion.div>
-          ) : (
-            <motion.a
-              href={project.demoLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              className="w-10 h-10 rounded-lg bg-background/80 backdrop-blur-md flex items-center justify-center text-foreground border border-border/50 hover:border-primary hover:text-primary transition-all shadow-lg"
-            >
-              <ExternalLink className="w-4 h-4" />
-            </motion.a>
-          )}
-          {isInternalLink(project.githubLink) ? (
-            <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
-              <Link
-                to={project.githubLink}
-                className="w-10 h-10 rounded-lg bg-background/80 backdrop-blur-md flex items-center justify-center text-foreground border border-border/50 hover:border-primary hover:text-primary transition-all shadow-lg"
-              >
-                <Github className="w-4 h-4" />
-              </Link>
-            </motion.div>
-          ) : (
-            <motion.a
-              href={project.githubLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              className="w-10 h-10 rounded-lg bg-background/80 backdrop-blur-md flex items-center justify-center text-foreground border border-border/50 hover:border-primary hover:text-primary transition-all shadow-lg"
-            >
-              <Github className="w-4 h-4" />
-            </motion.a>
-          )}
-        </div>
-
-        {/* Project Title Overlay */}
-        <div className="absolute bottom-4 left-4 right-4">
-          <div className="flex items-center gap-2 mb-1">
-            <Layers className="w-4 h-4 text-primary" />
-            <span className="text-primary text-xs font-mono uppercase tracking-wider">{project.tagline}</span>
-          </div>
-          <h3 className="text-xl font-bold font-heading text-foreground">
-            {project.title}
-          </h3>
-        </div>
-      </div>
-
-      {/* Content */}
-      <div className="p-5 pt-3">
-        {/* Description */}
-        <p className="text-muted-foreground text-sm leading-relaxed mb-4">
-          {project.description}
-        </p>
-
-        {/* Tech Stack */}
-        <div className="flex flex-wrap gap-2">
-          {project.stack.map((tech) => (
-            <span
-              key={tech}
-              className="relative px-2.5 py-1 text-xs font-mono text-foreground/90 rounded-md overflow-hidden"
-            >
-              <span className="absolute inset-0 bg-gradient-to-r from-primary/10 to-cyan-500/10 border border-primary/20 rounded-md" />
-              <span className="relative">{tech}</span>
-            </span>
-          ))}
-        </div>
-      </div>
-
-      {/* Bottom Neon Line */}
-      <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent opacity-50 group-hover:opacity-100 transition-opacity" />
-    </div>
-  </motion.div>
-);
+// ProjectCard removed — using shared ProjectCard component from src/components/ProjectCard
 
 const Projects = () => {
   return (
     <div className="min-h-screen bg-background">
+      <Navbar />
       {/* Hero Section */}
       <section className="relative py-20 overflow-hidden">
         <div className="absolute inset-0 overflow-hidden">
@@ -321,13 +204,7 @@ const Projects = () => {
         </div>
 
         <div className="section-container relative z-10">
-          <Link
-            to="/"
-            className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-8"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back to Home
-          </Link>
+          
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -351,41 +228,7 @@ const Projects = () => {
 
       {/* Categories */}
       {projectCategories.map((category, categoryIndex) => (
-        <section key={category.id} id={category.id} className="py-16 relative">
-          {categoryIndex % 2 === 1 && (
-            <div className="absolute inset-0 bg-muted/30" />
-          )}
-          
-          <div className="section-container relative z-10">
-            {/* Category Header */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="flex items-center gap-4 mb-10"
-            >
-              <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center border border-primary/20">
-                <category.icon className="w-7 h-7 text-primary" />
-              </div>
-              <div>
-                <h2 className="text-2xl md:text-3xl font-bold font-heading">
-                  {category.title}
-                </h2>
-                <p className="text-muted-foreground text-sm mt-1">
-                  {category.description}
-                </p>
-              </div>
-            </motion.div>
-
-            {/* Projects Grid */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {category.projects.map((project, index) => (
-                <ProjectCard key={project.title} project={project} index={index} />
-              ))}
-            </div>
-          </div>
-        </section>
+        <CategorySection key={category.id} category={category as any} categoryIndex={categoryIndex} />
       ))}
 
       {/* Back to Top */}
