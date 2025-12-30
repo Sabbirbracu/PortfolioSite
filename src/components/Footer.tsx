@@ -32,12 +32,12 @@ const Footer = () => {
           <div className="flex flex-col md:items-center">
             <h4 className="text-lg font-semibold text-foreground mb-3">Quick Links</h4>
             <div className="flex flex-col gap-2 text-sm text-muted-foreground mb-4">
-              <Link to="/services" className="hover:text-primary">Services</Link>
+              {/* <Link to="/services" className="hover:text-primary">Services</Link> */}
               <Link to="/projects" className="hover:text-primary">Projects</Link>
               <Link to="/blog" className="hover:text-primary">Blogs</Link>
               <Link to="/contact" className="hover:text-primary">Contact</Link>
-              <Link to="/affiliate/register" className="hover:text-primary">Affiliate Registration</Link>
-              <Link to="/affiliate/login" className="hover:text-primary">Affiliate Login</Link>
+              {/* <Link to="/affiliate/register" className="hover:text-primary">Affiliate Registration</Link> */}
+              {/* <Link to="/affiliate/login" className="hover:text-primary">Affiliate Login</Link> */}
             </div>
           </div>
 
