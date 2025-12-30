@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 const navLinks = [
+  { label: "Home", href: "/", isRoute: true },
   { label: "Services", href: "/services", isRoute: true },
   { label: "Projects", href: "/#projects", isRoute: false },
   { label: "Skills", href: "/#skills", isRoute: false },
