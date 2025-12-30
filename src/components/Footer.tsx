@@ -13,9 +13,9 @@ const Footer = () => {
             <h3 className="text-2xl font-heading font-bold text-foreground">Sabbir Ahmad</h3>
             <p className="text-sm text-muted-foreground">Full-Stack Developer & Consultant — building scalable web apps.</p>
             <div className="text-sm text-muted-foreground space-y-2">
-              <a href="mailto:hello@sabbirahmad.dev" className="flex items-center gap-2 hover:text-primary">
+              <a href="mailto:sabbirahmad653@gmail.com" className="flex items-center gap-2 hover:text-primary">
                 <Mail className="w-4 h-4" />
-                <span>hello@sabbirahmad.dev</span>
+                <span>sabbirahmad653@gmail.com</span>
               </a>
               <a href="tel:+8801304867542" className="flex items-center gap-2 hover:text-primary">
                 <Phone className="w-4 h-4" />
