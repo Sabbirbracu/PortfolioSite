@@ -1,4 +1,13 @@
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { AnimatePresence, motion } from "framer-motion";
 import { Download, Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -16,6 +25,7 @@ const navLinks = [
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const [isResumeOpen, setIsResumeOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -78,12 +88,34 @@ const Navbar = () => {
 
         {/* Desktop CTA */}
         <div className="hidden md:block">
-          <Button size="sm" asChild>
-            <a href="/resume.pdf" download>
-              <Download className="w-4 h-4 mr-2" />
-              Get Resume
-            </a>
-          </Button>
+          <Dialog open={isResumeOpen} onOpenChange={setIsResumeOpen}>
+            <DialogTrigger asChild>
+              <Button size="sm">
+                <Download className="w-4 h-4 mr-2" />
+                Get Resume
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="max-w-4xl w-full h-screen flex flex-col">
+              <DialogHeader>
+                <DialogTitle>Resume — SABBIR</DialogTitle>
+                <DialogDescription>Preview of resume (PDF)</DialogDescription>
+              </DialogHeader>
+              <div className="mt-2 flex-1 overflow-hidden">
+                {isResumeOpen && (
+                  <iframe
+                    src="/resume.pdf"
+                    title="Resume"
+                    className="w-full h-full"
+                  />
+                )}
+              </div>
+              <DialogFooter>
+                <a href="/resume.pdf" download className="text-sm text-primary hover:underline">
+                  Download Resume
+                </a>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
         </div>
 
         {/* Mobile Menu Toggle */}
@@ -116,12 +148,30 @@ const Navbar = () => {
                   {link.label}
                 </Link>
               ))}
-              <Button className="w-full mt-4" asChild>
-                <a href="/resume.pdf" download>
-                  <Download className="w-4 h-4 mr-2" />
-                  Get Resume
-                </a>
-              </Button>
+              <Dialog open={isResumeOpen} onOpenChange={setIsResumeOpen}>
+                <DialogTrigger asChild>
+                  <Button className="w-full mt-4">
+                    <Download className="w-4 h-4 mr-2" />
+                    Get Resume
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-3xl w-full h-screen flex flex-col">
+                  <DialogHeader>
+                    <DialogTitle>Resume — SABBIR</DialogTitle>
+                    <DialogDescription>Preview of resume (PDF)</DialogDescription>
+                  </DialogHeader>
+                  <div className="mt-2 flex-1 overflow-hidden">
+                    {isResumeOpen && (
+                      <iframe src="/resume.pdf" title="Resume" className="w-full h-full" />
+                    )}
+                  </div>
+                  <DialogFooter>
+                    <a href="/resume.pdf" download className="text-sm text-primary hover:underline">
+                      Download Resume
+                    </a>
+                  </DialogFooter>
+                </DialogContent>
+              </Dialog>
             </div>
           </motion.div>
         )}
