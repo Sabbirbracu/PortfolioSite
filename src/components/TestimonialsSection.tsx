@@ -1,5 +1,5 @@
-import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight, Play, Sparkles } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import { Play, Sparkles } from "lucide-react";
 import { useEffect, useState } from "react";
 
 interface TextTestimonial {
@@ -13,10 +13,10 @@ interface TextTestimonial {
 const textTestimonials: TextTestimonial[] = [
   {
     id: 1,
-    name: "John Smith",
-    role: "CTO",
-    company: "StartupX",
-    quote: "Sabbir's technical expertise and problem-solving skills are exceptional. He delivered a complex web application on time and exceeded all our expectations.",
+    name: "Mor Marks",
+    role: "CEO",
+    company: "Adapt online, Inc.",
+    quote: "Sabbir's technical expertise and problem-solving skills are exceptional. He delivered a complex web application on time and exceeded all our expectations.I hired Sabbir to help with our company's effort. He was flexible, and responsive. Would definitely hire again.",
   },
   {
     id: 2,
@@ -27,9 +27,9 @@ const textTestimonials: TextTestimonial[] = [
   },
   {
     id: 3,
-    name: "Michael Chen",
-    role: "Founder",
-    company: "InnovateLab",
+    name: "Juliet Easton",
+    role: "Marketing Lead",
+    company: "BadAss.Marketing, LLC",
     quote: "Sabbir transformed our vision into reality. His full-stack expertise and proactive communication made the development process smooth and efficient.",
   },
   {

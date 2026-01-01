@@ -1,23 +1,10 @@
 import Navbar from "@/components/Navbar";
 import CategorySection from "@/components/projects/CategorySection";
 import { Button } from "@/components/ui/button";
+import { Project } from "@/types/project";
 import { motion } from "framer-motion";
 import { ArrowLeft, BookOpen, Bot, Code2, Cpu, Globe } from "lucide-react";
 import { Link } from "react-router-dom";
-
-// Helper to check if link is internal route
-const isInternalLink = (link: string) => link.startsWith("/");
-
-interface Project {
-  title: string;
-  tagline: string;
-  description: string;
-  stack: string[];
-  year: string;
-  banner: string;
-  demoLink: string;
-  githubLink: string;
-}
 
 interface ProjectCategory {
   id: string;
@@ -35,44 +22,100 @@ const projectCategories: ProjectCategory[] = [
     description: "End-to-end web applications built with modern JavaScript/TypeScript stacks",
     projects: [
       {
+        id: "shaadimartbd-001",
+        slug: "shaadimartbd",
         title: "ShaadiMartBD",
         tagline: "Matrimony Platform",
         description: "A full-featured matrimony platform with real-time chat, secure authentication, role-based access, and scalable profile & search system.",
-        stack: ["React", "Node.js", "Express", "MongoDB", "Socket.io"],
-        year: "2024",
-        banner: "https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=800&h=400&fit=crop",
-        demoLink: "https://biye-bandhan.vercel.app/",
-        githubLink: "https://github.com/Sabbirbracu/ShaadimartBD",
+        type: "fullstack",
+        status: "live",
+        year: 2024,
+        visibility: "public",
+        media: {
+          banner: "public/Shaadimart_banner.png",
+        },
+        links: {
+          live: "https://biye-bandhan.vercel.app/",
+          github: "https://github.com/Sabbirbracu/ShaadimartBD",
+        },
+        techStack: {
+          primary: ["React", "Node.js", "Express", "MongoDB", "Socket.io"],
+        },
       },
       {
+        id: "ride-partner-001",
+        slug: "ride-partner-finder",
         title: "Ride Partner Finder",
         tagline: "Smart Route Sharing",
         description: "Dynamic team formation with location-based matching. Features cost-splitting logic and API-driven architecture for ride sharing.",
-        stack: ["React", "Node.js", "Express", "MongoDB", "Maps API"],
-        year: "2024",
-        banner: "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=800&h=400&fit=crop",
-        demoLink: "/not-found",
-        githubLink: "/not-found",
+        type: "fullstack",
+        status: "concept",
+        year: 2024,
+        visibility: "public",
+        media: {
+          banner: "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=800&h=400&fit=crop",
+        },
+        techStack: {
+          primary: ["React", "Node.js", "Express", "MongoDB", "Maps API"],
+        },
       },
       {
+        id: "rchms-001",
+        slug: "rchms",
+        title: "RCHMS",
+        tagline: "Housing & Payroll Automation System",
+        description: "A production-grade housing automation platform with secure registration, role-based access, and payroll automation backed by MySQL transactional integrity.",
+        type: "fullstack",
+        status: "live",
+        year: 2024,
+        visibility: "public",
+        media: {
+          banner: "/rchms_banner.png",
+        },
+        links: {
+          live: "https://rchms.qullia.com/",
+        },
+        techStack: {
+          primary: ["React", "Node.js", "MySQL"],
+        },
+      },
+      {
+        id: "learnhub-001",
+        slug: "learnhub-pro",
         title: "LearnHub Pro",
         tagline: "SaaS Course Platform",
         description: "Multi-role educational platform with Admin, Teacher, and Student roles. Email-based enrollment and section-wise course management.",
-        stack: ["React", "Node.js", "MongoDB", "JWT", "Nodemailer"],
-        year: "2023",
-        banner: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=800&h=400&fit=crop",
-        demoLink: "/not-found",
-        githubLink: "/not-found",
+        type: "fullstack",
+        status: "archived",
+        year: 2023,
+        visibility: "public",
+        media: {
+          banner: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=800&h=400&fit=crop",
+        },
+        techStack: {
+          primary: ["React", "Node.js", "MongoDB", "JWT", "Nodemailer"],
+        },
       },
       {
+        id: "daily-drift-001",
+        slug: "the-daily-drift",
         title: "The Daily Drift",
         tagline: "Content Platform",
         description: "Content-driven web application with clean UI, optimized frontend performance, and REST API backend deployed on modern cloud infrastructure.",
-        stack: ["React", "Tailwind", "Node.js", "Express", "MongoDB"],
-        year: "2023",
-        banner: "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&h=400&fit=crop",
-        demoLink: "https://thedailydrift.qullia.com/",
-        githubLink: "https://github.com/Sabbirbracu/The-Daily-Drift-Frontend",
+        type: "fullstack",
+        status: "live",
+        year: 2023,
+        visibility: "public",
+        media: {
+          banner: "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&h=400&fit=crop",
+        },
+        links: {
+          live: "https://thedailydrift.qullia.com/",
+          github: "https://github.com/Sabbirbracu/The-Daily-Drift-Frontend",
+        },
+        techStack: {
+          primary: ["React", "Tailwind", "Node.js", "Express", "MongoDB"],
+        },
       },
     ],
   },
@@ -83,24 +126,38 @@ const projectCategories: ProjectCategory[] = [
     description: "Custom WordPress themes and plugins with advanced functionality",
     projects: [
       {
+        id: "business-theme-001",
+        slug: "business-theme-pro",
         title: "Business Theme Pro",
         tagline: "Corporate Theme",
         description: "Custom corporate WordPress theme with page builders, custom widgets, and WooCommerce integration for business websites.",
-        stack: ["WordPress", "PHP", "JavaScript", "WooCommerce", "Elementor"],
-        year: "2024",
-        banner: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=400&fit=crop",
-        demoLink: "/not-found",
-        githubLink: "/not-found",
+        type: "wordpress",
+        status: "live",
+        year: 2024,
+        visibility: "public",
+        media: {
+          banner: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=400&fit=crop",
+        },
+        techStack: {
+          primary: ["WordPress", "PHP", "JavaScript", "WooCommerce", "Elementor"],
+        },
       },
       {
-        title: "Blog starter Theme",
+        id: "blog-starter-001",
+        slug: "blog-starter-theme",
+        title: "Blog Starter Theme",
         tagline: "Blog Theme",
         description: "Clean and minimal blog theme with SEO optimization, social sharing, and newsletter integration built from scratch.",
-        stack: ["WordPress", "PHP", "SCSS", "JavaScript", "REST API"],
-        year: "2023",
-        banner: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=800&h=400&fit=crop",
-        demoLink: "/not-found",
-        githubLink: "/not-found",
+        type: "wordpress",
+        status: "live",
+        year: 2023,
+        visibility: "public",
+        media: {
+          banner: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=800&h=400&fit=crop",
+        },
+        techStack: {
+          primary: ["WordPress", "PHP", "SCSS", "JavaScript", "REST API"],
+        },
       },
     ],
   },
@@ -111,24 +168,38 @@ const projectCategories: ProjectCategory[] = [
     description: "Scripts and tools for automating repetitive tasks and workflows",
     projects: [
       {
+        id: "data-scraper-001",
+        slug: "data-scraper-suite",
         title: "Data Scraper Suite",
         tagline: "Web Scraping Tool",
         description: "Comprehensive web scraping toolkit with proxy rotation, anti-detection measures, and data export to multiple formats.",
-        stack: ["Python", "Selenium", "BeautifulSoup", "Pandas", "PostgreSQL"],
-        year: "2024",
-        banner: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=800&h=400&fit=crop",
-        demoLink: "/not-found",
-        githubLink: "/not-found",
+        type: "backend",
+        status: "live",
+        year: 2024,
+        visibility: "public",
+        media: {
+          banner: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=800&h=400&fit=crop",
+        },
+        techStack: {
+          primary: ["Python", "Selenium", "BeautifulSoup", "Pandas", "PostgreSQL"],
+        },
       },
       {
+        id: "cicd-pipeline-001",
+        slug: "cicd-pipeline-builder",
         title: "CI/CD Pipeline Builder",
         tagline: "DevOps Automation",
         description: "Automated deployment pipeline with GitHub Actions, Docker containerization, and AWS integration for seamless deployments.",
-        stack: ["Docker", "GitHub Actions", "AWS", "Terraform", "Bash"],
-        year: "2024",
-        banner: "https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?w=800&h=400&fit=crop",
-        demoLink: "/not-found",
-        githubLink: "/not-found",
+        type: "backend",
+        status: "live",
+        year: 2024,
+        visibility: "public",
+        media: {
+          banner: "https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?w=800&h=400&fit=crop",
+        },
+        techStack: {
+          primary: ["Docker", "GitHub Actions", "AWS", "Terraform", "Bash"],
+        },
       },
     ],
   },
@@ -139,24 +210,38 @@ const projectCategories: ProjectCategory[] = [
     description: "Machine learning models and AI-powered applications",
     projects: [
       {
+        id: "sentiment-analyzer-001",
+        slug: "sentiment-analyzer",
         title: "Sentiment Analyzer",
         tagline: "NLP Application",
         description: "Real-time sentiment analysis API using transformer models for social media monitoring and brand sentiment tracking.",
-        stack: ["Python", "TensorFlow", "FastAPI", "Hugging Face", "Redis"],
-        year: "2024",
-        banner: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=400&fit=crop",
-        demoLink: "/not-found",
-        githubLink: "/not-found",
+        type: "ai-ml",
+        status: "live",
+        year: 2024,
+        visibility: "public",
+        media: {
+          banner: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=400&fit=crop",
+        },
+        techStack: {
+          primary: ["Python", "TensorFlow", "FastAPI", "Hugging Face", "Redis"],
+        },
       },
       {
+        id: "image-classifier-001",
+        slug: "image-classifier",
         title: "Image Classifier",
         tagline: "Computer Vision",
         description: "Custom image classification model trained on domain-specific data with REST API for real-time predictions.",
-        stack: ["Python", "PyTorch", "OpenCV", "Flask", "Docker"],
-        year: "2023",
-        banner: "https://images.unsplash.com/photo-1527430253228-e93688616381?w=800&h=400&fit=crop",
-        demoLink: "/not-found",
-        githubLink: "/not-found",
+        type: "ai-ml",
+        status: "live",
+        year: 2023,
+        visibility: "public",
+        media: {
+          banner: "https://images.unsplash.com/photo-1527430253228-e93688616381?w=800&h=400&fit=crop",
+        },
+        techStack: {
+          primary: ["Python", "PyTorch", "OpenCV", "Flask", "Docker"],
+        },
       },
     ],
   },
@@ -167,24 +252,38 @@ const projectCategories: ProjectCategory[] = [
     description: "Academic and experimental projects exploring new technologies",
     projects: [
       {
+        id: "blockchain-voting-001",
+        slug: "blockchain-voting-system",
         title: "Blockchain Voting System",
         tagline: "Decentralized App",
         description: "Experimental decentralized voting system using Ethereum smart contracts ensuring transparency and immutability.",
-        stack: ["Solidity", "React", "Web3.js", "Truffle", "IPFS"],
-        year: "2024",
-        banner: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=800&h=400&fit=crop",
-        demoLink: "/not-found",
-        githubLink: "/not-found",
+        type: "research",
+        status: "concept",
+        year: 2024,
+        visibility: "public",
+        media: {
+          banner: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=800&h=400&fit=crop",
+        },
+        techStack: {
+          primary: ["Solidity", "React", "Web3.js", "Truffle", "IPFS"],
+        },
       },
       {
+        id: "quantum-simulator-001",
+        slug: "quantum-algorithm-simulator",
         title: "Quantum Algorithm Simulator",
         tagline: "Quantum Computing",
         description: "Educational simulator for understanding quantum algorithms like Shor's and Grover's with visual representations.",
-        stack: ["Python", "Qiskit", "NumPy", "Matplotlib", "Jupyter"],
-        year: "2023",
-        banner: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=800&h=400&fit=crop",
-        demoLink: "/not-found",
-        githubLink: "/not-found",
+        type: "research",
+        status: "concept",
+        year: 2023,
+        visibility: "public",
+        media: {
+          banner: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=800&h=400&fit=crop",
+        },
+        techStack: {
+          primary: ["Python", "Qiskit", "NumPy", "Matplotlib", "Jupyter"],
+        },
       },
     ],
   },
@@ -228,7 +327,7 @@ const Projects = () => {
 
       {/* Categories */}
       {projectCategories.map((category, categoryIndex) => (
-        <CategorySection key={category.id} category={category as any} categoryIndex={categoryIndex} />
+        <CategorySection key={category.id} category={category} categoryIndex={categoryIndex} />
       ))}
 
       {/* Back to Top */}

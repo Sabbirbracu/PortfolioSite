@@ -242,7 +242,7 @@ const HeroSection = () => {
                 className="w-full sm:w-auto h-11 md:h-12 px-6 md:px-8 text-sm md:text-base font-semibold rounded-xl border-2 border-foreground/20 hover:border-primary/50 hover:bg-primary/5 transition-all duration-300"
                 onClick={() => setContactModalOpen(true)}
               >
-                Work with me
+                Contact with me
               </Button>
             </div>
 

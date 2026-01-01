@@ -5,6 +5,12 @@ import projects from "../data/projects";
 import ProjectCard from "./ProjectCard";
 
 const ProjectsSection = () => {
+  // Show specific 3 featured projects in order
+  const featuredSlugs = ["shaadimartbd", "rchms", "the-daily-drift"];
+  const featuredProjects = featuredSlugs
+    .map((slug) => projects.find((p) => p.slug === slug))
+    .filter(Boolean) as typeof projects;
+
   return (
     <section id="projects" className="py-24 relative overflow-hidden">
       {/* Background Grid Effect */}
@@ -38,9 +44,9 @@ const ProjectsSection = () => {
         </motion.div>
 
         {/* Projects Grid */}
-        <div className="grid md:grid-cols-2 gap-8">
-          {projects.map((project, index) => (
-            <ProjectCard key={project.title} project={project} index={index} />
+        <div className="grid md:grid-cols-3 gap-6">
+          {featuredProjects.map((project, index) => (
+            <ProjectCard key={project.id} project={project} index={index} />
           ))}
         </div>
 
