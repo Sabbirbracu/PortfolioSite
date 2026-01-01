@@ -62,7 +62,7 @@ const CTASection = () => {
                   onClick={() => setIsCalendlyOpen(true)}
                 >
                   <Calendar className="mr-2 w-5 h-5" />
-                  Book an Appointment
+                  Book a Call
                 </Button>
               </div>
             </motion.div>
