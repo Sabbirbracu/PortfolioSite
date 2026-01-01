@@ -1,6 +1,7 @@
-import { ArrowLeft, ExternalLink, Github } from "lucide-react";
+import { ArrowLeft, BookOpen, ExternalLink, Figma, FileText, Github } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 import projects from "../data/projects";
+import { getStatusLabel, getTypeLabel, hasCaseStudy } from "../types/project";
 
 const ProjectDetails = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -16,6 +17,11 @@ const ProjectDetails = () => {
     );
   }
 
+  const caseStudy = project.caseStudy;
+  const techStack = project.techStack;
+  const links = project.links;
+  const media = project.media;
+
   return (
     <main className="py-24">
       <div className="section-container mb-6">
@@ -26,16 +32,21 @@ const ProjectDetails = () => {
       </div>
       <div className="section-container">
         {/* Hero */}
-        <div className="rounded-2xl overflow-hidden mb-8 shadow-lg">
-          <img src={project.banner} alt={project.title} className="w-full h-72 object-cover" />
-        </div>
+        {media.banner && (
+          <div className="rounded-2xl overflow-hidden mb-8 shadow-lg bg-muted/30">
+            <img src={media.banner} alt={project.title} className="w-full max-h-[500px] object-contain mx-auto" />
+          </div>
+        )}
 
         <div className="max-w-4xl mx-auto text-center mb-12">
-          <p className="text-sm font-mono text-primary uppercase tracking-wide">Case Study</p>
+          <p className="text-sm font-mono text-primary uppercase tracking-wide">
+            {hasCaseStudy(project) ? "Case Study" : "Project"}
+          </p>
           <h1 className="text-4xl md:text-5xl font-bold mt-3">{project.title}</h1>
-          <p className="text-muted-foreground mt-3 max-w-3xl mx-auto">{project.tagline}</p>
-          {/* Sharp value sentence */}
-          <p className="mt-4 text-lg text-muted-foreground max-w-3xl mx-auto">A scalable, subscription-based matrimony platform built for the Bangladesh market with real-time communication, secure access control, and high-conversion onboarding.</p>
+          {project.tagline && (
+            <p className="text-muted-foreground mt-3 max-w-3xl mx-auto">{project.tagline}</p>
+          )}
+          <p className="mt-4 text-lg text-muted-foreground max-w-3xl mx-auto">{project.description}</p>
         </div>
 
         <div className="grid lg:grid-cols-3 gap-10">
@@ -53,51 +64,50 @@ const ProjectDetails = () => {
               <h2 className="text-2xl font-semibold mb-3">Project Snapshot</h2>
               <div className="grid sm:grid-cols-2 gap-4 bg-background/60 p-4 rounded-lg border border-border/30">
                 <div className="space-y-2">
-                  <div><strong>Project Type:</strong> Full-scale Web Platform (B2C SaaS)</div>
+                  <div><strong>Project Type:</strong> {getTypeLabel(project.type)}</div>
                   <div><strong>Duration:</strong> {project.duration || '—'}</div>
-                  <div><strong>My Role:</strong> {project.role || '—'}</div>
+                  <div><strong>My Role:</strong> {caseStudy?.role || '—'}</div>
                 </div>
                 <div className="space-y-2">
-                  <div><strong>Team Size:</strong> {project.teamSize || '—'}</div>
-                  <div><strong>Status:</strong> {project.status || '—'}</div>
-                  <div><strong>Target Users:</strong> {project.targetUsers || '—'}</div>
+                  <div><strong>Team Size:</strong> {caseStudy?.teamSize || '—'}</div>
+                  <div><strong>Status:</strong> {project.status ? getStatusLabel(project.status) : '—'}</div>
+                  <div><strong>Target Users:</strong> {caseStudy?.targetUsers || '—'}</div>
                 </div>
               </div>
             </section>
 
             {/* Problem & Solution */}
-            {(project.problem || project.solution) ? (
+            {(caseStudy?.problem || caseStudy?.solution) && (
               <section className="grid md:grid-cols-2 gap-6">
-                {project.problem && (
+                {caseStudy?.problem && (
                   <div>
                     <h3 className="text-lg font-semibold mb-2">Problem Statement</h3>
-                    <p className="text-muted-foreground">{project.problem}</p>
+                    <p className="text-muted-foreground">{caseStudy.problem}</p>
                   </div>
                 )}
-                {project.solution && (
+                {caseStudy?.solution && (
                   <div>
                     <h3 className="text-lg font-semibold mb-2">Solution Overview</h3>
-                    <p className="text-muted-foreground">{project.solution}</p>
+                    <p className="text-muted-foreground">{caseStudy.solution}</p>
                   </div>
                 )}
               </section>
-            ) : null}
+            )}
 
             {/* Impact / Outcome */}
-            {(project as any).outcome ? (
+            {caseStudy?.outcome && (
               <section>
                 <h3 className="text-lg font-semibold mb-2">Outcome</h3>
-                <p className="text-muted-foreground">{(project as any).outcome}</p>
+                <p className="text-muted-foreground">{caseStudy.outcome}</p>
               </section>
-            ) : null}
+            )}
 
-            {/* Gallery */}
             {/* Key Features Breakdown */}
-            {project.features && (
+            {caseStudy?.features && caseStudy.features.length > 0 && (
               <section>
                 <h3 className="text-lg font-semibold mb-3">Key Features</h3>
                 <div className="grid md:grid-cols-2 gap-4">
-                  {project.features.map((f, i) => (
+                  {caseStudy.features.map((f, i) => (
                     <div key={i} className="p-4 rounded-lg bg-background/60 border border-border/30">
                       <h4 className="font-semibold">{f.split(':')[0] || f}</h4>
                       <p className="text-sm text-muted-foreground mt-1">{f}</p>
@@ -107,26 +117,81 @@ const ProjectDetails = () => {
               </section>
             )}
 
-            <section>
-              <h3 className="text-lg font-semibold mb-3">Gallery</h3>
-              <div className="grid sm:grid-cols-2 gap-4">
-                {(project.images || [project.banner]).map((img, i) => (
-                  <div key={i} className="rounded-lg overflow-hidden shadow-sm">
-                    <img src={img} alt={`${project.title} ${i + 1}`} className="w-full h-52 object-cover" />
-                  </div>
-                ))}
-              </div>
-            </section>
+            {/* Architecture */}
+            {caseStudy?.architecture && (
+              <section>
+                <h3 className="text-lg font-semibold mb-3">Architecture</h3>
+                <p className="text-muted-foreground">{caseStudy.architecture}</p>
+              </section>
+            )}
 
-            {/* Features / Highlights */}
-            <section>
-              <h3 className="text-lg font-semibold mb-3">Highlights</h3>
-              <ul className="list-disc pl-5 text-muted-foreground">
-                <li>Production-grade architecture with scalable backend.</li>
-                <li>Role-based access and secure authentication.</li>
-                <li>Real-time features where applicable (chat, notifications).</li>
-              </ul>
-            </section>
+            {/* Challenges */}
+            {caseStudy?.challenges && caseStudy.challenges.length > 0 && (
+              <section>
+                <h3 className="text-lg font-semibold mb-3">Challenges & Solutions</h3>
+                <div className="space-y-4">
+                  {caseStudy.challenges.map((c, i) => (
+                    <div key={i} className="p-4 rounded-lg bg-background/60 border border-border/30">
+                      <p className="font-medium text-foreground"><strong>Challenge:</strong> {c.problem}</p>
+                      <p className="text-muted-foreground mt-2"><strong>Solution:</strong> {c.solution}</p>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
+
+            {/* Contributions */}
+            {caseStudy?.contribution && caseStudy.contribution.length > 0 && (
+              <section>
+                <h3 className="text-lg font-semibold mb-3">My Contributions</h3>
+                <ul className="list-disc pl-5 text-muted-foreground space-y-1">
+                  {caseStudy.contribution.map((c, i) => (
+                    <li key={i}>{c}</li>
+                  ))}
+                </ul>
+              </section>
+            )}
+
+            {/* Learnings (great for AI/Research projects) */}
+            {caseStudy?.learnings && caseStudy.learnings.length > 0 && (
+              <section>
+                <h3 className="text-lg font-semibold mb-3">Key Learnings</h3>
+                <ul className="list-disc pl-5 text-muted-foreground space-y-1">
+                  {caseStudy.learnings.map((l, i) => (
+                    <li key={i}>{l}</li>
+                  ))}
+                </ul>
+              </section>
+            )}
+
+            {/* Gallery */}
+            {(media.gallery && media.gallery.length > 0) && (
+              <section>
+                <h3 className="text-lg font-semibold mb-3">Gallery</h3>
+                <div className="grid sm:grid-cols-2 gap-4">
+                  {media.gallery.map((img, i) => (
+                    <div key={i} className="rounded-lg overflow-hidden shadow-sm">
+                      <img src={img} alt={`${project.title} ${i + 1}`} className="w-full h-52 object-cover" />
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
+
+            {/* Video Demo */}
+            {media.videoDemo && (
+              <section>
+                <h3 className="text-lg font-semibold mb-3">Video Demo</h3>
+                <div className="rounded-lg overflow-hidden shadow-sm aspect-video">
+                  <iframe
+                    src={media.videoDemo}
+                    title={`${project.title} Demo`}
+                    className="w-full h-full"
+                    allowFullScreen
+                  />
+                </div>
+              </section>
+            )}
 
             {/* CTA */}
             <section className="mt-6">
@@ -139,28 +204,176 @@ const ProjectDetails = () => {
           <aside className="space-y-6">
             <div className="p-5 rounded-2xl bg-background/80 border border-border/50">
               <h4 className="font-semibold">Project Details</h4>
-              <div className="mt-3 text-sm text-muted-foreground">
-                <div><strong>Year:</strong> {project.year}</div>
-                <div className="mt-2"><strong>Role:</strong> {(project as any).role || 'Lead Developer'}</div>
+              <div className="mt-3 text-sm text-muted-foreground space-y-2">
+                {project.year && <div><strong>Year:</strong> {project.year}</div>}
+                <div><strong>Type:</strong> {getTypeLabel(project.type)}</div>
+                {caseStudy?.role && <div><strong>Role:</strong> {caseStudy.role}</div>}
+                {project.status && <div><strong>Status:</strong> {getStatusLabel(project.status)}</div>}
               </div>
 
-              <div className="mt-3 flex flex-wrap gap-2">
-                {project.stack.map((s) => (
-                  <span key={s} className="px-3 py-1 rounded-md text-xs bg-primary/10 text-primary">{s}</span>
-                ))}
-              </div>
+              {/* Tech Stack */}
+              {techStack?.primary && techStack.primary.length > 0 && (
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {techStack.primary.map((s) => (
+                    <span key={s} className="px-3 py-1 rounded-md text-xs bg-primary/10 text-primary">{s}</span>
+                  ))}
+                </div>
+              )}
 
-              <div className="mt-4 flex gap-2">
-                <a href={project.demoLink} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-3 py-2 rounded-md bg-primary/10 border border-primary/30 text-primary">
-                  <ExternalLink className="w-4 h-4" />
-                  Demo
-                </a>
-                <a href={project.githubLink} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-3 py-2 rounded-md bg-background border border-border/30">
-                  <Github className="w-4 h-4" />
-                  Source
-                </a>
+              {/* Links */}
+              <div className="mt-4 flex flex-wrap gap-2">
+                {links?.live && (
+                  <a href={links.live} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-3 py-2 rounded-md bg-primary/10 border border-primary/30 text-primary">
+                    <ExternalLink className="w-4 h-4" />
+                    Demo
+                  </a>
+                )}
+                {links?.github && (
+                  <a href={links.github} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-3 py-2 rounded-md bg-background border border-border/30">
+                    <Github className="w-4 h-4" />
+                    Source
+                  </a>
+                )}
+                {links?.documentation && (
+                  <a href={links.documentation} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-3 py-2 rounded-md bg-background border border-border/30">
+                    <BookOpen className="w-4 h-4" />
+                    Docs
+                  </a>
+                )}
+                {links?.researchPaper && (
+                  <a href={links.researchPaper} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-3 py-2 rounded-md bg-background border border-border/30">
+                    <FileText className="w-4 h-4" />
+                    Paper
+                  </a>
+                )}
+                {links?.figma && (
+                  <a href={links.figma} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-3 py-2 rounded-md bg-background border border-border/30">
+                    <Figma className="w-4 h-4" />
+                    Figma
+                  </a>
+                )}
               </div>
             </div>
+
+            {/* Detailed Tech Stack */}
+            {techStack && (
+              <div className="p-5 rounded-2xl bg-background/80 border border-border/50">
+                <h4 className="font-semibold mb-3">Tech Stack</h4>
+                <div className="space-y-3 text-sm">
+                  {techStack.frontend && techStack.frontend.length > 0 && (
+                    <div>
+                      <span className="text-muted-foreground">Frontend:</span>
+                      <div className="flex flex-wrap gap-1 mt-1">
+                        {techStack.frontend.map((t) => (
+                          <span key={t} className="px-2 py-0.5 rounded text-xs bg-blue-500/10 text-blue-400">{t}</span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {techStack.backend && techStack.backend.length > 0 && (
+                    <div>
+                      <span className="text-muted-foreground">Backend:</span>
+                      <div className="flex flex-wrap gap-1 mt-1">
+                        {techStack.backend.map((t) => (
+                          <span key={t} className="px-2 py-0.5 rounded text-xs bg-green-500/10 text-green-400">{t}</span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {techStack.database && techStack.database.length > 0 && (
+                    <div>
+                      <span className="text-muted-foreground">Database:</span>
+                      <div className="flex flex-wrap gap-1 mt-1">
+                        {techStack.database.map((t) => (
+                          <span key={t} className="px-2 py-0.5 rounded text-xs bg-orange-500/10 text-orange-400">{t}</span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {techStack.aiMl && techStack.aiMl.length > 0 && (
+                    <div>
+                      <span className="text-muted-foreground">AI/ML:</span>
+                      <div className="flex flex-wrap gap-1 mt-1">
+                        {techStack.aiMl.map((t) => (
+                          <span key={t} className="px-2 py-0.5 rounded text-xs bg-purple-500/10 text-purple-400">{t}</span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {techStack.realtime && techStack.realtime.length > 0 && (
+                    <div>
+                      <span className="text-muted-foreground">Real-time:</span>
+                      <div className="flex flex-wrap gap-1 mt-1">
+                        {techStack.realtime.map((t) => (
+                          <span key={t} className="px-2 py-0.5 rounded text-xs bg-cyan-500/10 text-cyan-400">{t}</span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {techStack.devops && techStack.devops.length > 0 && (
+                    <div>
+                      <span className="text-muted-foreground">DevOps:</span>
+                      <div className="flex flex-wrap gap-1 mt-1">
+                        {techStack.devops.map((t) => (
+                          <span key={t} className="px-2 py-0.5 rounded text-xs bg-yellow-500/10 text-yellow-400">{t}</span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {techStack.tools && techStack.tools.length > 0 && (
+                    <div>
+                      <span className="text-muted-foreground">Tools:</span>
+                      <div className="flex flex-wrap gap-1 mt-1">
+                        {techStack.tools.map((t) => (
+                          <span key={t} className="px-2 py-0.5 rounded text-xs bg-gray-500/10 text-gray-400">{t}</span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* Metrics */}
+            {project.summaryMetrics && (
+              <div className="p-5 rounded-2xl bg-background/80 border border-border/50">
+                <h4 className="font-semibold mb-3">Impact & Metrics</h4>
+                <div className="space-y-2 text-sm">
+                  {project.summaryMetrics.users && (
+                    <div><strong>Users:</strong> <span className="text-muted-foreground">{project.summaryMetrics.users}</span></div>
+                  )}
+                  {project.summaryMetrics.scale && (
+                    <div><strong>Scale:</strong> <span className="text-muted-foreground">{project.summaryMetrics.scale}</span></div>
+                  )}
+                  {project.summaryMetrics.performance && (
+                    <div><strong>Performance:</strong> <span className="text-muted-foreground">{project.summaryMetrics.performance}</span></div>
+                  )}
+                  {project.summaryMetrics.impact && (
+                    <div><strong>Impact:</strong> <span className="text-muted-foreground">{project.summaryMetrics.impact}</span></div>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* Meta / Tags */}
+            {project.meta?.tags && project.meta.tags.length > 0 && (
+              <div className="p-5 rounded-2xl bg-background/80 border border-border/50">
+                <h4 className="font-semibold mb-3">Tags</h4>
+                <div className="flex flex-wrap gap-2">
+                  {project.meta.tags.map((tag) => (
+                    <span key={tag} className="px-2 py-1 rounded text-xs bg-muted text-muted-foreground">#{tag}</span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* NDA / Confidentiality Note */}
+            {project.meta?.confidentialityNote && (
+              <div className="p-5 rounded-2xl bg-yellow-500/10 border border-yellow-500/30">
+                <h4 className="font-semibold text-yellow-500 mb-2">Confidentiality Note</h4>
+                <p className="text-sm text-muted-foreground">{project.meta.confidentialityNote}</p>
+              </div>
+            )}
 
             <div className="p-5 rounded-2xl bg-background/80 border border-border/50">
               <h4 className="font-semibold">Contact</h4>

@@ -1,25 +1,14 @@
 import { motion } from "framer-motion";
 import React from "react";
+import { Project } from "../../types/project";
 import ProjectCard from "../ProjectCard";
-
-interface ProjectSimple {
-  title: string;
-  tagline: string;
-  description: string;
-  stack: string[];
-  year: string;
-  banner: string;
-  demoLink: string;
-  githubLink: string;
-  slug?: string;
-}
 
 interface Category {
   id: string;
   title: string;
   icon: React.ElementType;
   description: string;
-  projects: ProjectSimple[];
+  projects: Project[];
 }
 
 const CategorySection = ({ category, categoryIndex }: { category: Category; categoryIndex: number }) => {
@@ -47,7 +36,7 @@ const CategorySection = ({ category, categoryIndex }: { category: Category; cate
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {category.projects.map((project, index) => (
-            <ProjectCard key={project.title} project={project as any} index={index} />
+            <ProjectCard key={project.id} project={project} index={index} />
           ))}
         </div>
       </div>
